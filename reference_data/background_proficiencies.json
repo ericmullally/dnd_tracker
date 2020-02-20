@@ -1,0 +1,20 @@
+{   
+    "Acolyte": "Insight, Religion", 
+    "Charlatan": "Deception, Sleight of Hand", 
+    "Criminal": "Deception, Stealth", 
+    "Spy": "Deception, Stealth", 
+    "Entertainer": "Acrobatics, Performance", 
+    "Folk Hero": "Animal Handling, Survival", 
+    "Gladiator": "Acrobatics, Performance", 
+    "Guild Artisan": "Insight, Persuasion",
+    "Guild Merchant": "Insight, Persuasion",
+    "Hermit": "Medicine, Religion", 
+    "Knight": "History, Persuasion", 
+    "Noble": "History, Persuasion", 
+    "Outlander": "Athletics, Survival", 
+    "Pirate": "Athletics, Perception", 
+    "Sage": "Arcana, History", 
+    "Sailor": "Athletics, Perception", 
+    "Soldier": "Athletics, Intimidation", 
+    "Urchin": "Sleight of Hand, Stealth"
+    }
