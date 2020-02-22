@@ -43,9 +43,9 @@ class Character:
         self._characteristics = {"strength": [0, 0], "dexterity": [0, 0], "constitution": [
             0, 0], "intellegence": [0, 0], "wisdom": [0, 0], "charisma": [0, 0]}
         self._skills = {"acrobatics": ["dexterity", 0], "animal_handling": ["wisdom", 0], "arcana": ["intellegence", 0], "athletics": ["strength", 0],
-                        "Deception": ["charisma", 0], "history": ["intellegence", 0], "insight": ["wisdom", 0], "intimidation": ["charisma", 0],
+                        "deception": ["charisma", 0], "history": ["intellegence", 0], "insight": ["wisdom", 0], "intimidation": ["charisma", 0],
                         "investigation": ["intellegence", 0], "medicine": ["wisdom", 0], "nature": ["intellegence", 0], "perception": ["wisdom", 0],
-                        "perfomance": ["charisma", 0], "persuation": ["charisma", 0], "religion": ["intellegence", 0], "slieght of hand": ["dexterity", 0],
+                        "performance": ["charisma", 0], "persuation": ["charisma", 0], "religion": ["intellegence", 0], "slieght of hand": ["dexterity", 0],
                         "stealth": ["dexterity", 0], "survival": ["wisdom", 0]}
         self._saving_throws = {"Strength": 0, "Dexterity": 0,
                                "Constitution": 0, "Intellegence": 0, "Wisdom": 0, "Charisma": 0}

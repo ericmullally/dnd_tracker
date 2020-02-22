@@ -56,6 +56,15 @@ def setup(info):
         new_character.armor_class = 10 + \
             new_character.characteristics["dexterity"][1]
 
+        for skill in new_character.skills:
+            characteristic_needed = new_character.skills[skill][0]
+            if skill in info["skills"]:
+                points = new_character.characteristics[characteristic_needed][1] + \
+                    new_character.proficiency_bonus
+            else:
+                points = new_character.characteristics[characteristic_needed][1]
+            new_character.skills = (skill, points)
+
     except Exception:
         e = sys.exc_info()
         ex = e[1].args[0]
