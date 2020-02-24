@@ -1,15 +1,20 @@
 import sys
 import json
+import os
 from Character import Character
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from dnd_logic.setup import setup
+from dnd_logic.save_load_character import save_character
 import re
 from Skills_form import Skills_form
+from load_char_form import Load_char_form
 
 
 Ui_MainWindow, main_baseClass = uic.loadUiType("DND_tracker_1_main_page.ui")
 UI_create_char, create_char_class = uic.loadUiType("create_char_form.ui")
+
+
 with open("reference_data/classes_summary.json", mode="r") as classes_file:
     classes_json = json.load(classes_file)
 
@@ -18,6 +23,8 @@ character = Character("none")
 
 
 class MainWindow(main_baseClass):
+    # edit character:
+    # attacks
 
     # unhandled items need seperate form
     # apperance
@@ -34,7 +41,7 @@ class MainWindow(main_baseClass):
     # cantrips
     # spell_slots
     # spells
-    # attacks
+    
     # equipment
     # alignment
 
@@ -44,8 +51,34 @@ class MainWindow(main_baseClass):
         self.ui.setupUi(self)
         self.ui.create_button.clicked.connect(self.show_create_form)
         self.ui.Edit_button.clicked.connect(self.show_edit_form)
+        self.ui.save_button.clicked.connect(self.save_char)
+        self.ui.load_button.clicked.connect(self.load_char)
 
         self.show()
+
+    def save_char(self):
+        try:
+            save_character(character)
+            success_message = QtWidgets.QMessageBox(self)
+            success_message.setText(f"Character {character.name} saved!")
+            success_message.show()
+        except:
+           error_box = QtWidgets.QMessageBox(self)
+           error_box.setText("you must first create a character.")
+           error_box.show()
+
+    def load_char(self):
+        global character
+        if os.path.exists("characters"):
+            char_folder = os.listdir("characters")
+            available_chars = []
+        for char in char_folder:
+            available_chars.append(char.split("_")[2].split(".")[0]) 
+        self.ui.load_char_form = Load_char_form(available_chars)
+        self.ui.load_char_form.load_submmited.connect(self.update_form)
+        
+        
+        
 
     def show_create_form(self):
         self.cf = Create_Char_Form()
@@ -78,9 +111,12 @@ class MainWindow(main_baseClass):
                     ui_st_display.setText(str(value))
 
             elif attr == "other_proficiencies_languages":
-                label_list = map(lambda lang: QtWidgets.QLabel(lang), val)
+                QtWidgets.QLabel()
+                label_list = map(lambda lang: QtWidgets.QLabel( lang, self.ui.other_skills_scrollarea), val)
+                for i in reversed(range(self.ui.verticalLayout_other_skills.count())) :
+                    self.ui.verticalLayout_other_skills.itemAt(i).widget().setParent(None)
+                
                 for label in label_list:
-
                     label.setSizePolicy(
                         QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
                     label.setMinimumHeight(15)
@@ -89,7 +125,7 @@ class MainWindow(main_baseClass):
 
                 for skill in val:
                     name = skill if not skill == 'slieght of hand' else 'slieght_of_hand'
-                    value = character.skills[name][1] if not name == 'slieght_of_hand' else character.skills['slieght of hand'][1]
+                    value = char.skills[name][1] if not name == 'slieght_of_hand' else character.skills['slieght of hand'][1]
                     ui_attribute = getattr(self.ui, f"{name}_val", "none")
                     ui_attribute.setText(str(value))
             else:
@@ -165,12 +201,12 @@ class Create_Char_Form(create_char_class):
     def skill_submitted(self, *args):
         global character
         skills_payload = []
-        char_skills = classes_json[self.char_dict["class_val"]]["skills"]
+        
         for box in self.skills_form.ui.verticalLayoutWidget.children():
             if isinstance(box, QtWidgets.QLineEdit):
                 if "," in box.text():
-                    skills_payload = [item.strip().lower()
-                                      for item in box.text().split(",")]
+                    skills_payload = [item.strip().lower() if item.strip().lower() != "animal handling" else "animal_handling"
+                                      for item in box.text().split(",") ]
                 else:
                     error_box = QtWidgets.QMessageBox(self)
                     error_box.setText(

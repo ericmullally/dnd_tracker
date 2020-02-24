@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import json
+
 Ui_Skills_form, skills_form_baseClass = uic.loadUiType("skills_form.ui")
 
 
