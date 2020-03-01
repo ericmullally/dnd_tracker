@@ -77,7 +77,7 @@ class Inventory_from(inventory_baseClass):
            if isinstance(atk, QtWidgets.QLineEdit):
                if "0" in atk.objectName():
                    print(atk.objectName())
-                   from_data["attacks"][atk.text()] = {}
+                   from_data["attacks"][atk.text()] = []
                 
        
                    
