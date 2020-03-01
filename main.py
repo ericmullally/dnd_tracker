@@ -7,12 +7,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from dnd_logic.setup import setup
 from dnd_logic.save_load_character import save_character
 import re
-from Skills_form import Skills_form
-from load_char_form import Load_char_form
+from forms.Skills_form import Skills_form
+from forms.load_char_form import Load_char_form
+from forms.Inventory_form import Inventory_from
+from widgets_file.custom_message_box import Custom_message_box
 
 
 Ui_MainWindow, main_baseClass = uic.loadUiType("DND_tracker_1_main_page.ui")
-UI_create_char, create_char_class = uic.loadUiType("create_char_form.ui")
+UI_create_char, create_char_class = uic.loadUiType("forms/create_char_form.ui")
 
 
 with open("reference_data/classes_summary.json", mode="r") as classes_file:
@@ -49,12 +51,28 @@ class MainWindow(main_baseClass):
         super().__init__(*args, **kwargs)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.create_button.clicked.connect(self.show_create_form)
-        self.ui.Edit_button.clicked.connect(self.show_edit_form)
+        self.ui.create_button.clicked.connect(self.risk_create)
         self.ui.save_button.clicked.connect(self.save_char)
-        self.ui.load_button.clicked.connect(self.load_char)
+        self.ui.load_button.clicked.connect(self.risk_load)
+        self.ui.actionInventory.triggered.connect(self.show_inventory_form)
 
         self.show()
+
+    def risk_create(self):
+        if character.name != "none":
+            self.warning_box = Custom_message_box("your current character may be overwritten")
+            self.warning_box.chossen.connect(self.show_create_form)
+            self.warning_box.show()
+        else:
+            self.show_create_form(True)
+
+    def risk_load(self):
+        if character.name != "none":
+            self.warning_box = Custom_message_box("your current character may be overwritten")
+            self.warning_box.chossen.connect(self.load_char)
+            self.warning_box.show()
+        else:
+            self.load_char(True)
 
     def save_char(self):
         try:
@@ -66,31 +84,43 @@ class MainWindow(main_baseClass):
            error_box = QtWidgets.QMessageBox(self)
            error_box.setText("you must first create a character.")
            error_box.show()
-
-    def load_char(self):
+    
+    @QtCore.pyqtSlot(bool)
+    def load_char(self, choice):
         global character
-        if os.path.exists("characters"):
-            char_folder = os.listdir("characters")
-            available_chars = []
-        for char in char_folder:
-            available_chars.append(char.split("_")[2].split(".")[0]) 
-        self.ui.load_char_form = Load_char_form(available_chars)
-        self.ui.load_char_form.load_submmited.connect(self.update_form)
+        if choice == True:
+            if os.path.exists("characters"):
+                char_folder = os.listdir("characters")
+                available_chars = []
+                for char in char_folder:
+                    available_chars.append(char.split("_")[2].split(".")[0]) 
+                self.ui.load_char_form = Load_char_form(available_chars)
+                self.ui.load_char_form.load_submmited.connect(self.update_form)
+            else:
+                error_box = QtWidgets.QMessageBox(self)
+                error_box.setText("No characters found.")
+                error_box.show()
+        else:
+            return
         
-        
-        
-
-    def show_create_form(self):
-        self.cf = Create_Char_Form()
-        self.cf.submitted.connect(self.update_form)
-        self.cf.show()
+    @QtCore.pyqtSlot(bool)
+    def show_create_form(self, choice):
+        if choice == True:
+            self.cf = Create_Char_Form()
+            self.cf.submitted.connect(self.update_form)
+            self.cf.show()
+        else:
+            return
 
     def show_edit_form(self):
         self.cf = Create_Char_Form()
+
         self.cf.show()
 
     @QtCore.pyqtSlot(object)
     def update_form(self, char):
+        global character
+        character = char
         pattern = "^\_"
 
         for attr, val in char.__dict__.items():
@@ -111,7 +141,6 @@ class MainWindow(main_baseClass):
                     ui_st_display.setText(str(value))
 
             elif attr == "other_proficiencies_languages":
-                QtWidgets.QLabel()
                 label_list = map(lambda lang: QtWidgets.QLabel( lang, self.ui.other_skills_scrollarea), val)
                 for i in reversed(range(self.ui.verticalLayout_other_skills.count())) :
                     self.ui.verticalLayout_other_skills.itemAt(i).widget().setParent(None)
@@ -134,6 +163,10 @@ class MainWindow(main_baseClass):
                 if ui_attribute != "none":
                     ui_attribute.setText(str(val))
 
+    def show_inventory_form(self):
+        self.inventory_form = Inventory_from()
+        self.inventory_form.show()
+
 
 class Create_Char_Form(create_char_class):
     submitted = QtCore.pyqtSignal(object)
@@ -147,7 +180,6 @@ class Create_Char_Form(create_char_class):
         self.char_dict = {}
 
     def submit_form(self):
-        global character
 
         self.char_dict["attributes"] = {}
         self.char_dict["other_proficiencies_languages"] = []

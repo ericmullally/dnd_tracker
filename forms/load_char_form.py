@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from dnd_logic.save_load_character import load_character
-UI_load_char, char_load_class = uic.loadUiType("load_char_form.ui")
+UI_load_char, char_load_class = uic.loadUiType("forms/load_char_form.ui")
 
 class Load_char_form(char_load_class):
     load_submmited = QtCore.pyqtSignal(object)

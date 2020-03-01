@@ -516,22 +516,6 @@
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="Edit_button">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="text">
-     <string>Edit</string>
-    </property>
-   </widget>
    <widget class="QFrame" name="str_frame">
     <property name="geometry">
      <rect>
@@ -2360,7 +2344,7 @@
    <widget class="QPushButton" name="create_button">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>10</x>
       <y>10</y>
       <width>75</width>
       <height>23</height>
@@ -2373,7 +2357,7 @@
    <widget class="QPushButton" name="load_button">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>100</x>
       <y>10</y>
       <width>75</width>
       <height>23</height>
@@ -2505,7 +2489,7 @@
    <widget class="QPushButton" name="save_button">
     <property name="geometry">
      <rect>
-      <x>271</x>
+      <x>200</x>
       <y>10</y>
       <width>75</width>
       <height>23</height>
@@ -2531,6 +2515,7 @@
     </property>
     <addaction name="actionSpells"/>
     <addaction name="actionCharacter_description"/>
+    <addaction name="actionInventory"/>
    </widget>
    <addaction name="menumain"/>
   </widget>
@@ -2557,6 +2542,11 @@
    </property>
    <property name="text">
     <string>Character description</string>
+   </property>
+  </action>
+  <action name="actionInventory">
+   <property name="text">
+    <string>Inventory</string>
    </property>
   </action>
  </widget>
