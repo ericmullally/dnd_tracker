@@ -1,15 +1,15 @@
 import sys
 import json
 import os
+import re
 from Character import Character
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from dnd_logic.setup import setup
 from dnd_logic.save_load_character import save_character
-import re
+
 from forms.Skills_form import Skills_form
 from forms.load_char_form import Load_char_form
-from forms.Inventory_form import Inventory_from
 from widgets_file.custom_message_box import Custom_message_box
 
 
@@ -54,8 +54,7 @@ class MainWindow(main_baseClass):
         self.ui.create_button.clicked.connect(self.risk_create)
         self.ui.save_button.clicked.connect(self.save_char)
         self.ui.load_button.clicked.connect(self.risk_load)
-        self.ui.actionInventory.triggered.connect(self.show_inventory_form)
-
+        
         self.show()
 
     def risk_create(self):
@@ -163,9 +162,7 @@ class MainWindow(main_baseClass):
                 if ui_attribute != "none":
                     ui_attribute.setText(str(val))
 
-    def show_inventory_form(self):
-        self.inventory_form = Inventory_from()
-        self.inventory_form.show()
+    
 
 
 class Create_Char_Form(create_char_class):
