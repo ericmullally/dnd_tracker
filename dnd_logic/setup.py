@@ -4,10 +4,8 @@ import math
 import sys
 import json
 from dnd_logic.set_saving_throws import set_saving_throws
-from PyQt5 import QtCore, QtGui, QtWidgets
-# from helpr_funcs.stats.stats import predetermined_stats, rolled_stats
-# from helpr_funcs.set_skills import set_skills
-# from helpr_funcs.set_saving_throws import set_saving_throws
+
+
 
 
 with open("reference_data/classes_summary.json", mode="r") as class_flie:

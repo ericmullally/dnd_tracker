@@ -1,15 +1,16 @@
 import sys
 import json
 import os
+import re
 from Character import Character
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from dnd_logic.setup import setup
 from dnd_logic.save_load_character import save_character
-import re
+from dnd_logic.update_character import update_character
+
 from forms.Skills_form import Skills_form
 from forms.load_char_form import Load_char_form
-from forms.Inventory_form import Inventory_from
 from widgets_file.custom_message_box import Custom_message_box
 
 
@@ -25,9 +26,7 @@ character = Character("none")
 
 
 class MainWindow(main_baseClass):
-    # edit character:
-    # attacks
-
+    
     # unhandled items need seperate form
     # apperance
     # backstory
@@ -35,8 +34,6 @@ class MainWindow(main_baseClass):
     # initiative
     # allies organizations
     # treassure
-    # features and traits []
-    # additional_feats_traits []
     # spell_casting_abilty
     # spell_save_dc
     # spell_attack_modifier
@@ -44,8 +41,6 @@ class MainWindow(main_baseClass):
     # spell_slots
     # spells
     
-    # equipment
-    # alignment
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -54,8 +49,12 @@ class MainWindow(main_baseClass):
         self.ui.create_button.clicked.connect(self.risk_create)
         self.ui.save_button.clicked.connect(self.save_char)
         self.ui.load_button.clicked.connect(self.risk_load)
-        self.ui.actionInventory.triggered.connect(self.show_inventory_form)
-
+        self.ui.currency_edit.clicked.connect(lambda: self.show_edit_form(self.ui.currency_edit))
+        self.ui.equipment_edit.clicked.connect(lambda: self.show_edit_form(self.ui.equipment_edit))
+        self.ui.attacks_edit.clicked.connect(lambda: self.show_edit_form(self.ui.attacks_edit))
+        self.ui.skills_edit.clicked.connect(lambda: self.show_edit_form(self.ui.skills_edit))
+        self.ui.feats_edit.clicked.connect(lambda: self.show_edit_form(self.ui.feats_edit))
+        
         self.show()
 
     def risk_create(self):
@@ -112,10 +111,19 @@ class MainWindow(main_baseClass):
         else:
             return
 
-    def show_edit_form(self):
-        self.cf = Create_Char_Form()
+    def show_edit_form(self, form):
+        form_name = f"widgets_file/{form.objectName().split('_')[0]}_form.ui"
+        if character.name == "none":
+            error_box = QtWidgets.QMessageBox(self)
+            error_box.setText(
+                f"You must first create, or load a character.")
+            error_box.show()
+            return
 
-        self.cf.show()
+        self.edit_form = uic.loadUi(form_name)
+        self.edit_form.cancel_button.clicked.connect(self.edit_form.close)
+        self.edit_form.add_button.clicked.connect()
+        self.edit_form.show()
 
     @QtCore.pyqtSlot(object)
     def update_form(self, char):
@@ -163,9 +171,6 @@ class MainWindow(main_baseClass):
                 if ui_attribute != "none":
                     ui_attribute.setText(str(val))
 
-    def show_inventory_form(self):
-        self.inventory_form = Inventory_from()
-        self.inventory_form.show()
 
 
 class Create_Char_Form(create_char_class):
