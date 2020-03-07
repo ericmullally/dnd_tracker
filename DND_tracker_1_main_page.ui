@@ -2005,7 +2005,7 @@
    <widget class="QFrame" name="currency_frame">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>150</x>
       <y>440</y>
       <width>271</width>
       <height>91</height>
