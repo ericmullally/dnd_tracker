@@ -7,11 +7,12 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from dnd_logic.setup import setup
 from dnd_logic.save_load_character import save_character
-from dnd_logic.update_character import update_character
+# from dnd_logic.update_character import update_character
 
 from forms.Skills_form import Skills_form
 from forms.load_char_form import Load_char_form
 from widgets_file.custom_message_box import Custom_message_box
+from widgets_file.Edit_forms import Edit_form
 
 
 Ui_MainWindow, main_baseClass = uic.loadUiType("DND_tracker_1_main_page.ui")
@@ -26,7 +27,7 @@ character = Character("none")
 
 
 class MainWindow(main_baseClass):
-    
+
     # unhandled items need seperate form
     # apperance
     # backstory
@@ -40,7 +41,6 @@ class MainWindow(main_baseClass):
     # cantrips
     # spell_slots
     # spells
-    
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -49,17 +49,23 @@ class MainWindow(main_baseClass):
         self.ui.create_button.clicked.connect(self.risk_create)
         self.ui.save_button.clicked.connect(self.save_char)
         self.ui.load_button.clicked.connect(self.risk_load)
-        self.ui.currency_edit.clicked.connect(lambda: self.show_edit_form(self.ui.currency_edit))
-        self.ui.equipment_edit.clicked.connect(lambda: self.show_edit_form(self.ui.equipment_edit))
-        self.ui.attacks_edit.clicked.connect(lambda: self.show_edit_form(self.ui.attacks_edit))
-        self.ui.skills_edit.clicked.connect(lambda: self.show_edit_form(self.ui.skills_edit))
-        self.ui.feats_edit.clicked.connect(lambda: self.show_edit_form(self.ui.feats_edit))
-        
+        self.ui.currency_edit.clicked.connect(
+            lambda: self.show_edit_form(self.ui.currency_edit))
+        self.ui.equipment_edit.clicked.connect(
+            lambda: self.show_edit_form(self.ui.equipment_edit))
+        self.ui.attacks_edit.clicked.connect(
+            lambda: self.show_edit_form(self.ui.attacks_edit))
+        self.ui.skills_edit.clicked.connect(
+            lambda: self.show_edit_form(self.ui.skills_edit))
+        self.ui.feats_edit.clicked.connect(
+            lambda: self.show_edit_form(self.ui.feats_edit))
+
         self.show()
 
     def risk_create(self):
         if character.name != "none":
-            self.warning_box = Custom_message_box("your current character may be overwritten")
+            self.warning_box = Custom_message_box(
+                "your current character may be overwritten")
             self.warning_box.chossen.connect(self.show_create_form)
             self.warning_box.show()
         else:
@@ -67,7 +73,8 @@ class MainWindow(main_baseClass):
 
     def risk_load(self):
         if character.name != "none":
-            self.warning_box = Custom_message_box("your current character may be overwritten")
+            self.warning_box = Custom_message_box(
+                "your current character may be overwritten")
             self.warning_box.chossen.connect(self.load_char)
             self.warning_box.show()
         else:
@@ -80,10 +87,10 @@ class MainWindow(main_baseClass):
             success_message.setText(f"Character {character.name} saved!")
             success_message.show()
         except:
-           error_box = QtWidgets.QMessageBox(self)
-           error_box.setText("you must first create a character.")
-           error_box.show()
-    
+            error_box = QtWidgets.QMessageBox(self)
+            error_box.setText("you must first create a character.")
+            error_box.show()
+
     @QtCore.pyqtSlot(bool)
     def load_char(self, choice):
         global character
@@ -92,7 +99,7 @@ class MainWindow(main_baseClass):
                 char_folder = os.listdir("characters")
                 available_chars = []
                 for char in char_folder:
-                    available_chars.append(char.split("_")[2].split(".")[0]) 
+                    available_chars.append(char.split("_")[2].split(".")[0])
                 self.ui.load_char_form = Load_char_form(available_chars)
                 self.ui.load_char_form.load_submmited.connect(self.update_form)
             else:
@@ -101,7 +108,7 @@ class MainWindow(main_baseClass):
                 error_box.show()
         else:
             return
-        
+
     @QtCore.pyqtSlot(bool)
     def show_create_form(self, choice):
         if choice == True:
@@ -111,8 +118,8 @@ class MainWindow(main_baseClass):
         else:
             return
 
-    def show_edit_form(self, form):
-        form_name = f"widgets_file/{form.objectName().split('_')[0]}_form.ui"
+    def show_edit_form(self, form_button):
+        form_name = form_button.objectName().split('_')[0]
         if character.name == "none":
             error_box = QtWidgets.QMessageBox(self)
             error_box.setText(
@@ -120,9 +127,8 @@ class MainWindow(main_baseClass):
             error_box.show()
             return
 
-        self.edit_form = uic.loadUi(form_name)
-        self.edit_form.cancel_button.clicked.connect(self.edit_form.close)
-        self.edit_form.add_button.clicked.connect()
+        self.edit_form = Edit_form(form_name, character)
+        # self.edit_form.update_characer.connect(self.update_form)
         self.edit_form.show()
 
     @QtCore.pyqtSlot(object)
@@ -149,10 +155,12 @@ class MainWindow(main_baseClass):
                     ui_st_display.setText(str(value))
 
             elif attr == "other_proficiencies_languages":
-                label_list = map(lambda lang: QtWidgets.QLabel( lang, self.ui.other_skills_scrollarea), val)
-                for i in reversed(range(self.ui.verticalLayout_other_skills.count())) :
-                    self.ui.verticalLayout_other_skills.itemAt(i).widget().setParent(None)
-                
+                label_list = map(lambda lang: QtWidgets.QLabel(
+                    lang, self.ui.other_skills_scrollarea), val)
+                for i in reversed(range(self.ui.verticalLayout_other_skills.count())):
+                    self.ui.verticalLayout_other_skills.itemAt(
+                        i).widget().setParent(None)
+
                 for label in label_list:
                     label.setSizePolicy(
                         QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -170,7 +178,6 @@ class MainWindow(main_baseClass):
                 ui_attribute = getattr(self.ui, f"{name}_val", "none")
                 if ui_attribute != "none":
                     ui_attribute.setText(str(val))
-
 
 
 class Create_Char_Form(create_char_class):
@@ -238,12 +245,12 @@ class Create_Char_Form(create_char_class):
     def skill_submitted(self, *args):
         global character
         skills_payload = []
-        
+
         for box in self.skills_form.ui.verticalLayoutWidget.children():
             if isinstance(box, QtWidgets.QLineEdit):
                 if "," in box.text():
                     skills_payload = [item.strip().lower() if item.strip().lower() != "animal handling" else "animal_handling"
-                                      for item in box.text().split(",") ]
+                                      for item in box.text().split(",")]
                 else:
                     error_box = QtWidgets.QMessageBox(self)
                     error_box.setText(
