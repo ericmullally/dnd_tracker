@@ -47,8 +47,8 @@ class Edit_form(QtWidgets.QWidget):
         if self.objectName() == "attacks_form":
             print(character.attacks)
         if self.objectName() == "equipment_form":
-            character.equipment = (self.ui.type_input.text(
-            ), self.ui.name_input.text(), self.ui.count_input.value())
+            character.equipment = (
+                "items", self.ui.name_input.text(), self.ui.count_input.value())
             self.update_characer.emit(character)
             self.close()
         if self.objectName() == "feats_form":

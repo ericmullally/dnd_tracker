@@ -37,8 +37,8 @@ class Character:
         self.spell_slots = 0
         self.spells = []
         self._attacks = {}
-        self._equipment = {"currency": [{"sp": 0}, {"cp": 0}, {"ep": 0}, {"gp": 0}, {"pp": 0}],
-                           "weapons": {}, "armor": {}, "potions": {}, "items": {}}
+        self._equipment = {"currency": [{"sp": 0}, {"cp": 0}, {
+            "ep": 0}, {"gp": 0}, {"pp": 0}], "items": {}}
         self._characteristics = {"strength": [0, 0], "dexterity": [0, 0], "constitution": [
             0, 0], "intellegence": [0, 0], "wisdom": [0, 0], "charisma": [0, 0]}
         self._skills = {"acrobatics": ["dexterity", 0], "animal_handling": ["wisdom", 0], "arcana": ["intellegence", 0], "athletics": ["strength", 0],

@@ -167,8 +167,8 @@ class MainWindow(main_baseClass):
                         QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
                     label.setMinimumHeight(15)
                     self.ui.verticalLayout_other_skills.addWidget(label)
-            elif attr == "_skills":
 
+            elif attr == "_skills":
                 for skill in val:
                     name = skill if not skill == 'slieght of hand' else 'slieght_of_hand'
                     value = char.skills[name][1] if not name == 'slieght_of_hand' else character.skills['slieght of hand'][1]
@@ -184,13 +184,42 @@ class MainWindow(main_baseClass):
                                 getattr(self.ui, f"{cur[0]}_val").setText(
                                     str(cur[1]))
                     else:
-                        print(equip)
+                        if len(equip[1]) != 0:
+                            for i in reversed(range(self.ui.equipment_layout.count())):
+                                self.ui.equipment_layout.itemAt(
+                                    i).widget().setParent(None)
+                            equipment_items = list(equip[1].items())
+
+                            equipment_buttons = map(lambda item_tup: QtWidgets.QPushButton(
+                                item_tup[0],  flat=True), equipment_items)
+                            equipment_counts = list(map(lambda item_tup: QtWidgets.QLabel(
+                                str(item_tup[1])), equipment_items))
+
+                            for i, button in enumerate(equipment_buttons):
+                                button.setObjectName(equipment_items[i][0])
+                                button.clicked.connect(self.show_item_info)
+                                button.setSizePolicy(
+                                    QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+                                button.setMinimumHeight(25)
+                                button.setCursor(
+                                    QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+                                label = equipment_counts[i]
+                                label.setSizePolicy(
+                                    QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+                                label.setMinimumHeight(15)
+
+                                self.ui.equipment_layout.addRow(
+                                    label, button)
 
             else:
                 name = attr if not re.match(pattern, attr) else attr[1:]
                 ui_attribute = getattr(self.ui, f"{name}_val", "none")
                 if ui_attribute != "none":
                     ui_attribute.setText(str(val))
+
+    def show_item_info(self):
+        button_clicked = self.sender()
+        print(button_clicked.objectName())
 
 
 class Create_Char_Form(create_char_class):
