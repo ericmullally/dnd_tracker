@@ -174,12 +174,23 @@ class MainWindow(main_baseClass):
                     value = char.skills[name][1] if not name == 'slieght_of_hand' else character.skills['slieght of hand'][1]
                     ui_attribute = getattr(self.ui, f"{name}_val", "none")
                     ui_attribute.setText(str(value))
+
+            elif attr == "_equipment":
+                for equip in val.items():
+                    if equip[0] == "currency":
+                        for currency in equip[1]:
+                            currency_info = list(currency.items())
+                            for cur in currency_info:
+                                getattr(self.ui, f"{cur[0]}_val").setText(
+                                    str(cur[1]))
+                    else:
+                        print(equip)
+
             else:
                 name = attr if not re.match(pattern, attr) else attr[1:]
                 ui_attribute = getattr(self.ui, f"{name}_val", "none")
                 if ui_attribute != "none":
                     ui_attribute.setText(str(val))
-        
 
 
 class Create_Char_Form(create_char_class):

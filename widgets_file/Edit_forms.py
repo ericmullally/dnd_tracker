@@ -26,14 +26,31 @@ class Edit_form(QtWidgets.QWidget):
 
         self.ui.add_button.clicked.connect(
             lambda: self.change_values(character))
+        self.set_vals(character)
+
+    def set_vals(self, character):
+        if self.objectName() == "currency_form":
+            for currency in character.equipment["currency"]:
+                curr_info = list(currency.items())[0]
+                getattr(self.ui, f"{curr_info[0]}_input").setValue(
+                    curr_info[1])
 
     def change_values(self, character):
         if self.objectName() == "currency_form":
-           print(self.ui)
+            currency_names = ["cp", "pp", "gp", "ep", "sp"]
+            for currency in currency_names:
+                character.equipment = ("currency", currency, getattr(
+                    self.ui, f"{currency}_input").value())
+            self.update_characer.emit(character)
+            self.close()
+
         if self.objectName() == "attacks_form":
             print(character.attacks)
         if self.objectName() == "equipment_form":
-            print(character.equipment)
+            character.equipment = (self.ui.type_input.text(
+            ), self.ui.name_input.text(), self.ui.count_input.value())
+            self.update_characer.emit(character)
+            self.close()
         if self.objectName() == "feats_form":
             print(character.features_traits)
         if self.objectName() == "skills_form":

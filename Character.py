@@ -49,7 +49,6 @@ class Character:
         self._saving_throws = {"Strength": 0, "Dexterity": 0,
                                "Constitution": 0, "Intellegence": 0, "Wisdom": 0, "Charisma": 0}
         self.other_proficiencies_languages = []
-        
 
     @property
     def clss(self):
@@ -157,7 +156,7 @@ class Character:
                 currency_list = [list(val.keys())[0]
                                  for val in self._equipment[item_type]]
                 currency_index = currency_list.index(item_name)
-                self._equipment[item_type][currency_index][item_name] += count
+                self._equipment[item_type][currency_index][item_name] = count
             else:
                 self._equipment[item_type][item_name] = count
 
@@ -186,13 +185,15 @@ class Character:
             self._saving_throws[st_name] = value
 
     def level_up(self):
-        levels = [ (0, 1, 2), (300, 2,2), (900,3,2), (2700, 4,2),(6500, 5,3),
-        (14000,6,3), (23000,7,3), (34000,8,3), (48000,9,4), (64000,10,4),
-        (85000, 11,4), (100000,12,4), (120000,13,5), (140000,14,5), (165000,15,5),
-        (195000,16,5), (225000,17,6),(265000,18,6), (305000,19,6), (355000,20,6)]
+        levels = [(0, 1, 2), (300, 2, 2), (900, 3, 2), (2700, 4, 2), (6500, 5, 3),
+                  (14000, 6, 3), (23000, 7, 3), (34000,
+                                                 8, 3), (48000, 9, 4), (64000, 10, 4),
+                  (85000, 11, 4), (100000, 12, 4), (120000,
+                                                    13, 5), (140000, 14, 5), (165000, 15, 5),
+                  (195000, 16, 5), (225000, 17, 6), (265000, 18, 6), (305000, 19, 6), (355000, 20, 6)]
 
-        for i,exp in enumerate(levels):
+        for i, exp in enumerate(levels):
             if self.exp > exp[0]:
                 self.level = levels[i+1][1]
-                self.proficiency_bonus =  levels[i+1][2]
+                self.proficiency_bonus = levels[i+1][2]
                 print(self.level)
