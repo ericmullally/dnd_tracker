@@ -128,7 +128,7 @@ class MainWindow(main_baseClass):
             return
 
         self.edit_form = Edit_form(form_name, character)
-        # self.edit_form.update_characer.connect(self.update_form)
+        self.edit_form.update_characer.connect(self.update_form)
         self.edit_form.show()
 
     @QtCore.pyqtSlot(object)
@@ -136,6 +136,7 @@ class MainWindow(main_baseClass):
         global character
         character = char
         pattern = "^\_"
+        character.level_up()
 
         for attr, val in char.__dict__.items():
 
@@ -178,6 +179,7 @@ class MainWindow(main_baseClass):
                 ui_attribute = getattr(self.ui, f"{name}_val", "none")
                 if ui_attribute != "none":
                     ui_attribute.setText(str(val))
+        
 
 
 class Create_Char_Form(create_char_class):

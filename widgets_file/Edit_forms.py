@@ -29,7 +29,7 @@ class Edit_form(QtWidgets.QWidget):
 
     def change_values(self, character):
         if self.objectName() == "currency_form":
-            print(character.equipment["currency"])
+           print(self.ui)
         if self.objectName() == "attacks_form":
             print(character.attacks)
         if self.objectName() == "equipment_form":
