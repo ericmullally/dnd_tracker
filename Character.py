@@ -32,10 +32,11 @@ class Character:
         self.features_traits = []
         self.spell_casting_abilty = ""
         self.spell_save_dc = 0
-        self.spell_attack_modifier = 0
+        self.spell_attack_bonus = 0
         self.cantrips = []
         self.spell_slots = 0
-        self.spells = {}
+        self.spells = {"level_cantrip": [], "level_1": [], "level_2": [], "level_3": [], "level_4": [
+        ], "level_5": [], "level_6": [], "level_7": [], "level_8": [], "level_9": []}
         self._attacks = {}
         self._equipment = {"currency": [{"sp": 0}, {"cp": 0}, {
             "ep": 0}, {"gp": 0}, {"pp": 0}], "items": {}}
@@ -191,9 +192,12 @@ class Character:
                                                     13, 5), (140000, 14, 5), (165000, 15, 5),
                   (195000, 16, 5), (225000, 17, 6), (265000, 18, 6), (305000, 19, 6), (355000, 20, 6)]
 
-        for i, exp in enumerate(levels):
+        for exp in levels:
             if self.exp > exp[0]:
-                self.level = levels[i][1]
-                self.proficiency_bonus = levels[i][2]
+                self.level = exp[1]
+                self.proficiency_bonus = exp[2]
                 self.hp = (int(self.hit_dice.split(
                     "d")[1]) + self.characteristics["constitution"][1]) * self.level
+
+                self.spell_save_dc = 8 + self.proficiency_bonus + self.characteristics[
+                    self.spell_casting_abilty.lower()][1]

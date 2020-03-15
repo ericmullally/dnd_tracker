@@ -7,10 +7,11 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from dnd_logic.setup import setup
 from dnd_logic.save_load_character import save_character
-# from dnd_logic.update_character import update_character
+
 
 from forms.Skills_form import Skills_form
 from forms.load_char_form import Load_char_form
+from forms.Spell_and_cantrip_display import Spell_display
 from widgets_file.custom_message_box import Custom_message_box
 from widgets_file.Edit_forms import Edit_form
 
@@ -63,6 +64,8 @@ class MainWindow(main_baseClass):
 
         self.ui.xp_hp_edit_button.clicked.connect(
             lambda: self.show_edit_form(self.ui.xp_hp_edit_button))
+
+        self.ui.action_spells.triggered.connect(self.show_spells)
 
         self.show()
 
@@ -272,6 +275,16 @@ class MainWindow(main_baseClass):
                 ui_attribute = getattr(self.ui, f"{name}_val", "none")
                 if ui_attribute != "none":
                     ui_attribute.setText(str(val))
+
+    def show_spells(self):
+        if character.name == "none":
+            error_box = QtWidgets.QMessageBox(self)
+            error_box.setText("You have no chatracter loaded.")
+            error_box.show()
+            return
+        else:
+            self.spell_display = Spell_display(character)
+            self.spell_display.show()
 
     def show_item_info(self):
         button_clicked = self.sender()
