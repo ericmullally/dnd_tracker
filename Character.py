@@ -35,7 +35,7 @@ class Character:
         self.spell_attack_modifier = 0
         self.cantrips = []
         self.spell_slots = 0
-        self.spells = []
+        self.spells = {}
         self._attacks = {}
         self._equipment = {"currency": [{"sp": 0}, {"cp": 0}, {
             "ep": 0}, {"gp": 0}, {"pp": 0}], "items": {}}
@@ -112,9 +112,8 @@ class Character:
     def attacks(self, values):
         if len(values) == 4:
             name, attack_bonus, dmg, typ = values
-        elif len(values) == 3:
-            name, attack_bonus, dmg = values
-            typ = None
+        if typ == None:
+            typ = "normal"
         self._attacks[name] = {
             "attack bonus": attack_bonus, "dmg/type": [dmg, typ]}
 
@@ -194,6 +193,7 @@ class Character:
 
         for i, exp in enumerate(levels):
             if self.exp > exp[0]:
-                self.level = levels[i+1][1]
-                self.proficiency_bonus = levels[i+1][2]
-                print(self.level)
+                self.level = levels[i][1]
+                self.proficiency_bonus = levels[i][2]
+                self.hp = (int(self.hit_dice.split(
+                    "d")[1]) + self.characteristics["constitution"][1]) * self.level

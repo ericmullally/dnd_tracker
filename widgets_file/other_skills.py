@@ -10,9 +10,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_skills_form(object):
+class Ui_other_skills_form(object):
     def setupUi(self, skills_form):
-        skills_form.setObjectName("skills_form")
+        skills_form.setObjectName("other_skills_form")
         skills_form.resize(282, 132)
         self.skills_input = QtWidgets.QLineEdit(skills_form)
         self.skills_input.setGeometry(QtCore.QRect(52, 50, 181, 20))
@@ -37,6 +37,7 @@ class Ui_skills_form(object):
     def retranslateUi(self, skills_form):
         _translate = QtCore.QCoreApplication.translate
         skills_form.setWindowTitle(_translate("skills_form", "Form"))
-        self.label.setText(_translate("skills_form", "Other skill or Language"))
+        self.label.setText(_translate(
+            "skills_form", "Other skill or Language"))
         self.add_button.setText(_translate("skills_form", "Add"))
         self.cancel_button.setText(_translate("skills_form", "cancel"))

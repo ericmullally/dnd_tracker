@@ -41,6 +41,7 @@ class MainWindow(main_baseClass):
     # cantrips
     # spell_slots
     # spells
+    # 257,147
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -59,6 +60,9 @@ class MainWindow(main_baseClass):
             lambda: self.show_edit_form(self.ui.skills_edit))
         self.ui.feats_edit.clicked.connect(
             lambda: self.show_edit_form(self.ui.feats_edit))
+
+        self.ui.xp_hp_edit_button.clicked.connect(
+            lambda: self.show_edit_form(self.ui.xp_hp_edit_button))
 
         self.show()
 
@@ -165,7 +169,7 @@ class MainWindow(main_baseClass):
                 for label in label_list:
                     label.setSizePolicy(
                         QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-                    label.setMinimumHeight(15)
+                    label.setMinimumHeight(25)
                     self.ui.verticalLayout_other_skills.addWidget(label)
 
             elif attr == "_skills":
@@ -210,6 +214,58 @@ class MainWindow(main_baseClass):
 
                                 self.ui.equipment_layout.addRow(
                                     label, button)
+
+            elif attr == "_attacks":
+
+                for i in reversed(range(self.ui.gridLayout_attacks.count())):
+                    self.ui.gridLayout_attacks.itemAt(
+                        i).widget().setParent(None)
+
+                attack_widget_list = []
+
+                for attack in val.items():
+                    attack_name = QtWidgets.QPushButton(
+                        attack[0],  flat=True)
+                    attack_name.setObjectName(attack[0])
+                    attack_name.clicked.connect(self.show_item_info)
+                    attack_name.setSizePolicy(
+                        QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+                    attack_name.setMinimumHeight(25)
+                    attack_name.setCursor(QtGui.QCursor(
+                        QtCore.Qt.PointingHandCursor))
+
+                    attack_bonus = QtWidgets.QLabel(
+                        attack[1]["attack bonus"])
+                    attack_bonus.setSizePolicy(
+                        QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+                    attack_bonus.setMinimumHeight(25)
+
+                    attack_damage_type = QtWidgets.QLabel(
+                        "/".join(attack[1]["dmg/type"]))
+                    attack_damage_type.setSizePolicy(
+                        QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+                    attack_damage_type.setMinimumHeight(25)
+
+                    attack_widget_list.append(
+                        (attack_name, attack_bonus, attack_damage_type))
+
+                for widg_tup in attack_widget_list:
+                    row_count = self.ui.gridLayout_attacks.rowCount()
+                    for i in range(0, 3):
+                        self.ui.gridLayout_attacks.addWidget(
+                            widg_tup[i], row_count, i)
+
+            elif attr == "features_traits":
+                for i in reversed(range(self.ui.verticalLayout_feats_traits.count())):
+                    self.ui.verticalLayout_feats_traits.itemAt(
+                        i).widget().setParent(None)
+
+                for feat in val:
+                    feat_label = QtWidgets.QLabel(feat)
+                    feat_label.setSizePolicy(
+                        QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+                    feat_label.setMinimumHeight(25)
+                    self.ui.verticalLayout_feats_traits.addWidget(feat_label)
 
             else:
                 name = attr if not re.match(pattern, attr) else attr[1:]

@@ -92,7 +92,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Name_val</string>
+      <string/>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -135,7 +135,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Level_val</string>
+      <string/>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -178,7 +178,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Armor_val</string>
+      <string/>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -221,7 +221,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Speed_val</string>
+      <string/>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -263,7 +263,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Class_val</string>
+      <string/>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -292,7 +292,7 @@
     <widget class="QLabel" name="background_val">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>220</x>
        <y>46</y>
        <width>81</width>
        <height>20</height>
@@ -305,7 +305,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>CHarlatan</string>
+      <string/>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -347,7 +347,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -496,10 +496,10 @@
     <widget class="QLabel" name="hit_dice_val">
      <property name="geometry">
       <rect>
-       <x>540</x>
+       <x>530</x>
        <y>50</y>
        <width>47</width>
-       <height>13</height>
+       <height>16</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -509,7 +509,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>1d8</string>
+      <string/>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -574,7 +574,7 @@
       </font>
      </property>
      <property name="text">
-      <string>14</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="str_mod_label">
@@ -607,7 +607,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>mod_val</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -663,7 +663,7 @@
       </font>
      </property>
      <property name="text">
-      <string>11</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="dex_mod_label">
@@ -696,7 +696,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>mod_val</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -752,7 +752,7 @@
       </font>
      </property>
      <property name="text">
-      <string>12</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="con_mod_label">
@@ -785,7 +785,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>mod_val</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -841,7 +841,7 @@
       </font>
      </property>
      <property name="text">
-      <string>14</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="int_mod_label">
@@ -874,7 +874,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Mod_val</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -930,7 +930,7 @@
       </font>
      </property>
      <property name="text">
-      <string>13</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="wis_mod_label">
@@ -963,7 +963,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>mod_val</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -1019,7 +1019,7 @@
       </font>
      </property>
      <property name="text">
-      <string>15</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="cha_mod_label">
@@ -1052,7 +1052,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Mod_val</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -1101,7 +1101,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="st_dexterity_val">
@@ -1114,7 +1114,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="st_constitution_val">
@@ -1127,7 +1127,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="st_intellegence_val">
@@ -1140,7 +1140,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="st_charisma_val">
@@ -1153,7 +1153,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="st_wisdom_val">
@@ -1166,7 +1166,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="st_strength_label">
@@ -1349,7 +1349,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="proficiency_bonus_val">
@@ -1362,7 +1362,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>2</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="pass_wis_label">
@@ -1395,7 +1395,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -1678,7 +1678,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="animal_handling_val">
@@ -1691,7 +1691,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="arcana_val">
@@ -1704,7 +1704,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="athletics_val">
@@ -1717,7 +1717,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="deception_val">
@@ -1730,7 +1730,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="history_val">
@@ -1743,7 +1743,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="insight_val">
@@ -1756,7 +1756,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="intimidation_val">
@@ -1769,7 +1769,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="investigation_val">
@@ -1782,7 +1782,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="medicine_val">
@@ -1795,7 +1795,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="nature_val">
@@ -1808,7 +1808,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="perception_val">
@@ -1821,7 +1821,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="performance_val">
@@ -1834,7 +1834,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="persuation_val">
@@ -1847,7 +1847,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="religion_val">
@@ -1860,7 +1860,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="slieght_of_hand_val">
@@ -1873,7 +1873,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="stealth_val">
@@ -1886,7 +1886,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="survival_val">
@@ -1899,7 +1899,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>val</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -1951,6 +1951,12 @@
       <height>151</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
     <property name="frameShape">
      <enum>QFrame::WinPanel</enum>
     </property>
@@ -1960,7 +1966,7 @@
     <property name="widgetResizable">
      <bool>true</bool>
     </property>
-    <widget class="QWidget" name="scrollAreaWidgetContents_2">
+    <widget class="QWidget" name="attack_scroll_content">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -1969,7 +1975,11 @@
        <height>147</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout_attacks"/>
+     <layout class="QGridLayout" name="gridLayout_attacks">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+     </layout>
     </widget>
    </widget>
    <widget class="QScrollArea" name="equipment_scrollarea">
@@ -2143,7 +2153,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -2178,7 +2188,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -2213,7 +2223,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -2248,7 +2258,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -2532,7 +2542,7 @@
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
-     <string>edit</string>
+     <string>Add</string>
     </property>
    </widget>
    <widget class="QPushButton" name="attacks_edit">
@@ -2554,7 +2564,7 @@
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
-     <string>edit</string>
+     <string>Add</string>
     </property>
    </widget>
    <widget class="QPushButton" name="feats_edit">
@@ -2576,7 +2586,20 @@
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
-     <string>edit</string>
+     <string>Add</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="xp_hp_edit_button">
+    <property name="geometry">
+     <rect>
+      <x>894</x>
+      <y>10</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Edit    HP/XP/Armor</string>
     </property>
    </widget>
   </widget>
@@ -2593,13 +2616,13 @@
     <property name="title">
      <string>Menu</string>
     </property>
-    <addaction name="actionSpells"/>
-    <addaction name="actionCharacter_description"/>
+    <addaction name="action_spells"/>
+    <addaction name="action_characteristics"/>
    </widget>
    <addaction name="menumain"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionSpells">
+  <action name="action_spells">
    <property name="checkable">
     <bool>false</bool>
    </property>
@@ -2615,7 +2638,7 @@
     <string>Main info</string>
    </property>
   </action>
-  <action name="actionCharacter_description">
+  <action name="action_characteristics">
    <property name="checkable">
     <bool>true</bool>
    </property>
