@@ -12,12 +12,14 @@ from dnd_logic.save_load_character import save_character
 from forms.Skills_form import Skills_form
 from forms.load_char_form import Load_char_form
 from forms.Spell_and_cantrip_display import Spell_display
+from forms.Character_description import Character_description
 from widgets_file.custom_message_box import Custom_message_box
 from widgets_file.Edit_forms import Edit_form
 
 
 Ui_MainWindow, main_baseClass = uic.loadUiType("DND_tracker_1_main_page.ui")
-UI_create_char, create_char_class = uic.loadUiType("forms/create_char_form.ui")
+UI_create_char, create_char_class = uic.loadUiType(
+    "forms/ui_forms/create_char_form.ui")
 
 
 with open("reference_data/classes_summary.json", mode="r") as classes_file:
@@ -29,6 +31,7 @@ character = Character("none")
 
 class MainWindow(main_baseClass):
 
+<<<<<<< HEAD
     # unhandled items need seperate form
     # apperance
     # backstory
@@ -38,6 +41,8 @@ class MainWindow(main_baseClass):
     # treassure
   
 
+=======
+>>>>>>> 73ce639157fcf584f75b89729d7cfdba38e26432
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.ui = Ui_MainWindow()
@@ -60,6 +65,7 @@ class MainWindow(main_baseClass):
             lambda: self.show_edit_form(self.ui.xp_hp_edit_button))
 
         self.ui.action_spells.triggered.connect(self.show_spells)
+        self.ui.action_characteristics.triggered.connect(self.show_description)
 
         self.show()
 
@@ -198,7 +204,7 @@ class MainWindow(main_baseClass):
 
                             for i, button in enumerate(equipment_buttons):
                                 button.setObjectName(equipment_items[i][0])
-                                button.clicked.connect(self.show_item_info)
+                                button.clicked.connect(self.remove_item)
                                 button.setSizePolicy(
                                     QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
                                 button.setMinimumHeight(25)
@@ -224,7 +230,7 @@ class MainWindow(main_baseClass):
                     attack_name = QtWidgets.QPushButton(
                         attack[0],  flat=True)
                     attack_name.setObjectName(attack[0])
-                    attack_name.clicked.connect(self.show_item_info)
+                    attack_name.clicked.connect(self.remove_item)
                     attack_name.setSizePolicy(
                         QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
                     attack_name.setMinimumHeight(25)
@@ -280,6 +286,7 @@ class MainWindow(main_baseClass):
             self.spell_display = Spell_display(character)
             self.spell_display.show()
 
+<<<<<<< HEAD
     def show_item_info(self):
         global character
         button_clicked = self.sender()
@@ -289,6 +296,37 @@ class MainWindow(main_baseClass):
                 # del()
                 pass
                 
+=======
+    def remove_item(self):
+        global character
+        button_clicked = self.sender()
+        confirmation = QtWidgets.QMessageBox.question(
+            self, "confirm delete", "Are you sure you want to remove this item?")
+
+        if confirmation == QtWidgets.QMessageBox.Yes:
+            if button_clicked.parent().objectName() == "attack_scroll_content":
+                del(character.attacks[button_clicked.objectName()])
+                self.update_form(character)
+            elif button_clicked.parent().objectName() == "scrollArea_equipment":
+                del(character.equipment["items"][button_clicked.objectName()])
+                self.update_form(character)
+            else:
+                # will never be called
+                print(button_clicked.objectName())
+        else:
+            return
+
+    def show_description(self):
+        global character
+        if character.name == "none":
+            error_message = QtWidgets.QMessageBox(self)
+            error_message.setText("You must load or create a character.")
+            error_message.show()
+            return
+        else:
+            self.character_description_form = Character_description()
+            self.character_description_form.show()
+>>>>>>> 73ce639157fcf584f75b89729d7cfdba38e26432
 
 
 class Create_Char_Form(create_char_class):
