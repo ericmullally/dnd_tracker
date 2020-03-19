@@ -36,13 +36,7 @@ class MainWindow(main_baseClass):
     # initiative
     # allies organizations
     # treassure
-    # spell_casting_abilty
-    # spell_save_dc
-    # spell_attack_modifier
-    # cantrips
-    # spell_slots
-    # spells
-    # 257,147
+  
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -287,8 +281,14 @@ class MainWindow(main_baseClass):
             self.spell_display.show()
 
     def show_item_info(self):
+        global character
         button_clicked = self.sender()
-        print(button_clicked.objectName())
+        button_reply = QtWidgets.QMessageBox.question(self, "Confirm delete", "Are you sure you want to delete this?")
+        if button_reply == QtWidgets.QMessageBox.Yes:
+            if button_clicked.parent().objectName() == "attack_scroll_content":
+                # del()
+                pass
+                
 
 
 class Create_Char_Form(create_char_class):

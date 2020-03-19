@@ -117,6 +117,9 @@ class Character:
             typ = "normal"
         self._attacks[name] = {
             "attack bonus": attack_bonus, "dmg/type": [dmg, typ]}
+    @attacks.deleter
+    def attacks(self, name):
+        print(name)
 
     @property
     def characteristics(self):
