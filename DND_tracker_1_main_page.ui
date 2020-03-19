@@ -2000,7 +2000,7 @@
     <property name="widgetResizable">
      <bool>true</bool>
     </property>
-    <widget class="QWidget" name="scrollAreaWidgetContents_3">
+    <widget class="QWidget" name="scrollArea_equipment">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -2640,6 +2640,9 @@
   </action>
   <action name="action_characteristics">
    <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
     <bool>true</bool>
    </property>
    <property name="text">

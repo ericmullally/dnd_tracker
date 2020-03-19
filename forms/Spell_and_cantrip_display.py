@@ -3,7 +3,7 @@ from widgets_file.Spell_edit import Spell_edit
 
 
 Ui_Spell_and_cantrip_form, Spell_and_cantrip_baseClass = uic.loadUiType(
-    "forms\spell_and_cantrip_display.ui")
+    "forms/ui_forms/spell_and_cantrip_display.ui")
 
 
 class Spell_display(Spell_and_cantrip_baseClass):
@@ -73,6 +73,7 @@ class Spell_display(Spell_and_cantrip_baseClass):
 
     def show_description(self):
         button_name = self.sender().objectName().split("_")
+        # finds spell level in the character info
         spell_list = self.character.spells[f"{button_name[0]}_{button_name[1]}"]
 
         for spell in spell_list:
