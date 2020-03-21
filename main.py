@@ -31,18 +31,6 @@ character = Character("none")
 
 class MainWindow(main_baseClass):
 
-<<<<<<< HEAD
-    # unhandled items need seperate form
-    # apperance
-    # backstory
-    # looks
-    # initiative
-    # allies organizations
-    # treassure
-  
-
-=======
->>>>>>> 73ce639157fcf584f75b89729d7cfdba38e26432
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.ui = Ui_MainWindow()
@@ -286,17 +274,6 @@ class MainWindow(main_baseClass):
             self.spell_display = Spell_display(character)
             self.spell_display.show()
 
-<<<<<<< HEAD
-    def show_item_info(self):
-        global character
-        button_clicked = self.sender()
-        button_reply = QtWidgets.QMessageBox.question(self, "Confirm delete", "Are you sure you want to delete this?")
-        if button_reply == QtWidgets.QMessageBox.Yes:
-            if button_clicked.parent().objectName() == "attack_scroll_content":
-                # del()
-                pass
-                
-=======
     def remove_item(self):
         global character
         button_clicked = self.sender()
@@ -326,7 +303,6 @@ class MainWindow(main_baseClass):
         else:
             self.character_description_form = Character_description()
             self.character_description_form.show()
->>>>>>> 73ce639157fcf584f75b89729d7cfdba38e26432
 
 
 class Create_Char_Form(create_char_class):
