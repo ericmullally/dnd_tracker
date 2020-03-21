@@ -411,6 +411,7 @@ class Create_Char_Form(create_char_class):
                 error_box.setText(
                     f"please choose {self.skills_form.ui.choices_number} skills")
                 error_box.show()
+                return
         self.char_dict["skills"] = skills_payload
         self.skills_form.close()
         character = setup(self.char_dict)
