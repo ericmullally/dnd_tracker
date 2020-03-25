@@ -59,6 +59,7 @@ def setup(info):
 
         new_character.armor_class = 10 + \
             new_character.characteristics["dexterity"][1]
+        new_character.passive_perception = 8 + new_character.characteristics["wisdom"][1]
 
         for skill in new_character.skills:
             characteristic_needed = new_character.skills[skill][0]

@@ -23,6 +23,7 @@ class Character:
         self.flaws = ""
         self.proficiency_bonus = 0
         self.inspiration = 0
+        self.passive_perception = 0
         self._looks = {"age": 0, "height": 0, "weight": 0,
                        "eyes": "", "skin": "", "hair": ""}
         self.apperance = ""
@@ -50,6 +51,7 @@ class Character:
         self._saving_throws = {"Strength": 0, "Dexterity": 0,
                                "Constitution": 0, "Intellegence": 0, "Wisdom": 0, "Charisma": 0}
         self.other_proficiencies_languages = []
+        self.notes = ""
 
     @property
     def clss(self):

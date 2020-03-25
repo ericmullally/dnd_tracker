@@ -81,7 +81,7 @@
       <rect>
        <x>60</x>
        <y>18</y>
-       <width>71</width>
+       <width>81</width>
        <height>20</height>
       </rect>
      </property>
@@ -101,7 +101,7 @@
     <widget class="QLabel" name="llevel_abel">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>170</x>
        <y>16</y>
        <width>51</width>
        <height>21</height>
@@ -122,7 +122,7 @@
     <widget class="QLabel" name="level_val">
      <property name="geometry">
       <rect>
-       <x>200</x>
+       <x>220</x>
        <y>16</y>
        <width>61</width>
        <height>20</height>
@@ -144,7 +144,7 @@
     <widget class="QLabel" name="armor_label">
      <property name="geometry">
       <rect>
-       <x>290</x>
+       <x>340</x>
        <y>16</y>
        <width>51</width>
        <height>20</height>
@@ -165,7 +165,7 @@
     <widget class="QLabel" name="armor_class_val">
      <property name="geometry">
       <rect>
-       <x>350</x>
+       <x>400</x>
        <y>15</y>
        <width>71</width>
        <height>21</height>
@@ -187,7 +187,7 @@
     <widget class="QLabel" name="speed_label">
      <property name="geometry">
       <rect>
-       <x>450</x>
+       <x>470</x>
        <y>16</y>
        <width>51</width>
        <height>21</height>
@@ -208,7 +208,7 @@
     <widget class="QLabel" name="speed_val">
      <property name="geometry">
       <rect>
-       <x>510</x>
+       <x>530</x>
        <y>15</y>
        <width>61</width>
        <height>21</height>
@@ -230,7 +230,7 @@
     <widget class="QLabel" name="class_label">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>340</x>
        <y>46</y>
        <width>51</width>
        <height>21</height>
@@ -250,7 +250,7 @@
     <widget class="QLabel" name="clss_val">
      <property name="geometry">
       <rect>
-       <x>360</x>
+       <x>390</x>
        <y>46</y>
        <width>81</width>
        <height>20</height>
@@ -272,7 +272,7 @@
     <widget class="QLabel" name="bg_label">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>150</x>
        <y>46</y>
        <width>91</width>
        <height>20</height>
@@ -292,9 +292,9 @@
     <widget class="QLabel" name="background_val">
      <property name="geometry">
       <rect>
-       <x>220</x>
+       <x>240</x>
        <y>46</y>
-       <width>81</width>
+       <width>101</width>
        <height>20</height>
       </rect>
      </property>
@@ -336,7 +336,7 @@
       <rect>
        <x>60</x>
        <y>50</y>
-       <width>61</width>
+       <width>81</width>
        <height>16</height>
       </rect>
      </property>
@@ -476,7 +476,7 @@
     <widget class="QLabel" name="hd_label">
      <property name="geometry">
       <rect>
-       <x>470</x>
+       <x>490</x>
        <y>50</y>
        <width>61</width>
        <height>16</height>
@@ -496,7 +496,7 @@
     <widget class="QLabel" name="hit_dice_val">
      <property name="geometry">
       <rect>
-       <x>530</x>
+       <x>550</x>
        <y>50</y>
        <width>47</width>
        <height>16</height>
@@ -1370,7 +1370,7 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>151</width>
+       <width>191</width>
        <height>20</height>
       </rect>
      </property>
@@ -1382,16 +1382,16 @@
       </font>
      </property>
      <property name="text">
-      <string>Passive Wis (Perception):</string>
+      <string>Passive Perception:</string>
      </property>
     </widget>
-    <widget class="QLabel" name="pass_wis_val">
+    <widget class="QLabel" name="passive_perception_val">
      <property name="geometry">
       <rect>
        <x>170</x>
        <y>30</y>
-       <width>16</width>
-       <height>16</height>
+       <width>31</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="text">
@@ -2609,7 +2609,7 @@
      <x>0</x>
      <y>0</y>
      <width>1056</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menumain">

@@ -17,6 +17,8 @@ from widgets_file.custom_message_box import Custom_message_box
 from widgets_file.Edit_forms import Edit_form
 
 
+# passive wisdom is 8 plus wisdom modifier 
+
 Ui_MainWindow, main_baseClass = uic.loadUiType("DND_tracker_1_main_page.ui")
 UI_create_char, create_char_class = uic.loadUiType(
     "forms/ui_forms/create_char_form.ui")
@@ -301,7 +303,8 @@ class MainWindow(main_baseClass):
             error_message.show()
             return
         else:
-            self.character_description_form = Character_description()
+            self.character_description_form = Character_description(character)
+            self.character_description_form.finish_edit.connect(self.update_form)
             self.character_description_form.show()
 
 
