@@ -133,14 +133,14 @@ class Character:
             if len(val) == 3:
                 characteristic, points, mod = val
             else:
-                raise ValueError("a minimum of two arguments are required")
+                raise ValueError("three arguments are required")
         except ValueError as ve:
             print(ve, "character characteristics setter error")
             return
         for char in self._characteristics:
             if char == characteristic:
-                self._characteristics[char][0] += points
-                self._characteristics[char][1] += mod
+                self._characteristics[char][0] = points 
+                self._characteristics[char][1] = mod
 
     @property
     def equipment(self):

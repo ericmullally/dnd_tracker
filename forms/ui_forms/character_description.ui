@@ -138,7 +138,7 @@
    <property name="widgetResizable">
     <bool>true</bool>
    </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents_2">
+   <widget class="QWidget" name="treassure_scroll">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -147,7 +147,7 @@
       <height>179</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2"/>
+    <layout class="QVBoxLayout" name="treassure_layout"/>
    </widget>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -236,7 +236,7 @@
    <property name="widgetResizable">
     <bool>true</bool>
    </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents_4">
+   <widget class="QWidget" name="allies_scroll_2">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -245,7 +245,7 @@
       <height>179</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout"/>
+    <layout class="QVBoxLayout" name="allies_layout"/>
    </widget>
   </widget>
   <widget class="QLabel" name="label_5">
@@ -374,6 +374,9 @@
      <pointsize>13</pointsize>
     </font>
    </property>
+   <property name="maximum">
+    <number>20</number>
+   </property>
   </widget>
   <widget class="QLabel" name="label_7">
    <property name="geometry">
@@ -467,6 +470,9 @@
      <pointsize>13</pointsize>
     </font>
    </property>
+   <property name="maximum">
+    <number>20</number>
+   </property>
   </widget>
   <widget class="QSpinBox" name="constitution_box">
    <property name="geometry">
@@ -481,6 +487,9 @@
     <font>
      <pointsize>13</pointsize>
     </font>
+   </property>
+   <property name="maximum">
+    <number>20</number>
    </property>
   </widget>
   <widget class="QSpinBox" name="intellegence_box">
@@ -497,6 +506,9 @@
      <pointsize>13</pointsize>
     </font>
    </property>
+   <property name="maximum">
+    <number>20</number>
+   </property>
   </widget>
   <widget class="QSpinBox" name="wisdom_box">
    <property name="geometry">
@@ -512,6 +524,9 @@
      <pointsize>13</pointsize>
     </font>
    </property>
+   <property name="maximum">
+    <number>20</number>
+   </property>
   </widget>
   <widget class="QSpinBox" name="charisma_box">
    <property name="geometry">
@@ -526,6 +541,22 @@
     <font>
      <pointsize>13</pointsize>
     </font>
+   </property>
+   <property name="maximum">
+    <number>20</number>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="update_characteristics_form">
+   <property name="geometry">
+    <rect>
+     <x>780</x>
+     <y>670</y>
+     <width>161</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Update characteristics</string>
    </property>
   </widget>
  </widget>
