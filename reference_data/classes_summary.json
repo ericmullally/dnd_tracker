@@ -4,6 +4,8 @@
     "Hit Die": "1d12",
     "Primary Ability": "Strength",
     "Saving Throw Proficiencies": "Strength & Constitution",
+    "Spellcasting Ability": "none",
+    "Spell save DC": 0,
     "Armor and Weapon Proficiencies": "Light and medium armor, shields, simple and martial weapons",
     "skills": "2, Animal Handling, Athletics, Intimidation, Nature, Perception, Survival"
   },
@@ -47,6 +49,8 @@
     "Primary Ability": "Strength or Dexterity",
     "Saving Throw Proficiencies": "Strength & Constitution",
     "Armor and Weapon Proficiencies": "All armor, shields, simple and martial weapons",
+    "Spellcasting Ability": "none",
+    "Spell save DC": 0,
     "skills": "2, Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, Survival"
   },
 
@@ -56,6 +60,8 @@
     "Primary Ability": "Dexterity & Wisdom",
     "Saving Throw Proficiencies": "Strength & Dexterity",
     "Armor and Weapon Proficiencies": "Simple weapons, shortswords",
+    "Spellcasting Ability": "Ki",
+    "Spell save DC": 8,
     "skills": "2,  Acrobatics, Athletics, History, Insight, Religion, Stealth"
   },
 
@@ -86,6 +92,8 @@
     "Hit Die": "1d8",
     "Primary Ability": "Dexterity",
     "Saving Throw Proficiencies": "Dexterity & Intelligence",
+    "Spellcasting Ability": "chosen by you",
+    "Spell save DC": 8,
     "Armor and Weapon Proficiencies": "Light armor, simple weapons, hand crossbows, longswords, rapiers, shortswords",
     "skills": "4, Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Performance, Persuasion, Sleight of Hand, Stealth"
   },

@@ -3,6 +3,7 @@ import math
 from forms.Notes_form import Notes_form
 from forms.Apperance_form import Apperance_form
 from forms.Treasure_form import Treasure_form
+from forms.Allies_form import Allies_form
 
 UI_character_description, character_description_class = uic.loadUiType(
     "forms/ui_forms/character_description.ui")
@@ -50,6 +51,33 @@ class Character_description(character_description_class):
                 new_button.clicked.connect(self.remove_item)
                 self.ui.treassure_layout.addWidget(new_button)
 
+        elif self.ui.treassure_layout.count() > 0:
+            for i in reversed(range(self.ui.treassure_layout.count())):
+                self.ui.treassure_layout.itemAt(
+                    i).widget().setParent(None)
+        else:
+            return
+
+    def update_allies(self):
+        if len(self.character.allies_orginizations) > 0:
+            
+            for i in reversed(range(self.ui.allies_layout.count())):
+                self.ui.allies_layout.itemAt(
+                    i).widget().setParent(None)
+            
+            for allies in self.character.allies_orginizations:
+                new_button = QtWidgets.QPushButton(allies, flat=True)
+                new_button.setObjectName(allies)
+                new_button.clicked.connect(self.remove_item)
+                self.ui.allies_layout.addWidget(new_button)
+
+        elif self.ui.allies_layout.count() > 0:
+            for i in reversed(range(self.ui.allies_layout.count())):
+                self.ui.allies_layout.itemAt(
+                    i).widget().setParent(None)
+        else:
+            return
+
     def edit_apperance(self):
         self.apperance_form = Apperance_form()
         self.apperance_form.ui.apperance_edit.setText(self.character.apperance)
@@ -69,7 +97,9 @@ class Character_description(character_description_class):
         self.treassure_form.show()
 
     def add_allies(self):
-        pass
+        self.allies_form = Allies_form()
+        self.allies_form.ui.allies_submit_button.clicked.connect(self.update_character)
+        self.allies_form.show()
 
     def update_character(self):
         form_button = self.sender().objectName()
@@ -100,17 +130,48 @@ class Character_description(character_description_class):
             self.success_message.show()
 
         if form_button == "treassure_submit_button":
-            self.character.treassure.append(self.treassure_form.ui.treassure_edit.text())
-            self.update_treassure()
-            self.treassure_form.close()
+            if len(self.treassure_form.ui.treassure_edit.text()) <= 0:
+                error_box =QtWidgets.QMessageBox(self)
+                error_box.setText("Please enter a name.")
+                error_box.show()
+                return
+            else:
+                self.character.treassure.append(self.treassure_form.ui.treassure_edit.text())
+                self.update_treassure()
+                self.treassure_form.close()
+        
+        if form_button == "allies_submit_button":
+            if len(self.allies_form.ui.allies_edit.text()) <= 0:
+                error_box =QtWidgets.QMessageBox(self)
+                error_box.setText("Please enter a name.")
+                error_box.show()
+                return
+            else:
+                self.character.allies_orginizations.append(self.allies_form.ui.allies_edit.text())
+                self.update_allies()
+                self.allies_form.close()
             
 
     def remove_item(self):
         button = self.sender()
         layout_name = button.parent().objectName()
+        confirmation = QtWidgets.QMessageBox.question(
+            self, "confirm delete", "Are you sure you want to remove this item?")
+
 
         if layout_name == "treassure_scroll":
-            pass
+           
+            if confirmation == QtWidgets.QMessageBox.Yes:
+                item_index = self.character.treassure.index(button.objectName())
+                self.character.treassure.pop(item_index)
+                self.update_treassure()
+            else:
+                return
 
         if layout_name == "allies_scroll":
-            pass
+            if confirmation == QtWidgets.QMessageBox.Yes:
+                item_index = self.character.allies_orginizations.index(button.objectName())
+                self.character.allies_orginizations.pop(item_index)
+                self.update_allies()
+            else:
+                return

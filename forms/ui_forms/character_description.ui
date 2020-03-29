@@ -224,7 +224,7 @@
     <string>Edit</string>
    </property>
   </widget>
-  <widget class="QScrollArea" name="allies_scroll">
+  <widget class="QScrollArea" name="allies_scroll_container">
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -236,7 +236,7 @@
    <property name="widgetResizable">
     <bool>true</bool>
    </property>
-   <widget class="QWidget" name="allies_scroll_2">
+   <widget class="QWidget" name="allies_scroll">
     <property name="geometry">
      <rect>
       <x>0</x>

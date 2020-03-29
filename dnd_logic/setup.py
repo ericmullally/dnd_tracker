@@ -48,14 +48,14 @@ def setup(info):
         new_character.apperance = info["apperance"]
         new_character.backstory = info["backstory"]
         new_character.spell_casting_abilty = class_data[info["class_val"]
-                                                        ]["Spellcasting Ability"]
+                                                        ]["Spellcasting Ability"] 
 
         new_character.spell_save_dc = class_data[info["class_val"]
                                                  ]["Spell save DC"] + new_character.proficiency_bonus + new_character.characteristics[
-            new_character.spell_casting_abilty.lower()][1]
+            new_character.spell_casting_abilty.lower()][1] if new_character.spell_casting_abilty != "none" else 0
 
         new_character.spell_attack_bonus = new_character.characteristics[
-            new_character.spell_casting_abilty.lower()][1] + new_character.proficiency_bonus
+            new_character.spell_casting_abilty.lower()][1] + new_character.proficiency_bonus if new_character.spell_casting_abilty != "none" else 0
 
         new_character.armor_class = 10 + \
             new_character.characteristics["dexterity"][1]
@@ -63,6 +63,7 @@ def setup(info):
 
         for skill in new_character.skills:
             characteristic_needed = new_character.skills[skill][0]
+
             if skill in info["skills"]:
                 points = new_character.characteristics[characteristic_needed][1] + \
                     new_character.proficiency_bonus
@@ -72,7 +73,7 @@ def setup(info):
 
     except Exception:
         e = sys.exc_info()
-        ex = e[1].args[0]
+        ex = e[1].args[0] 
         raise Exception(ex)
 
     return new_character

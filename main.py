@@ -17,7 +17,6 @@ from widgets_file.custom_message_box import Custom_message_box
 from widgets_file.Edit_forms import Edit_form
 
 
-# passive wisdom is 8 plus wisdom modifier 
 
 Ui_MainWindow, main_baseClass = uic.loadUiType("DND_tracker_1_main_page.ui")
 UI_create_char, create_char_class = uic.loadUiType(
@@ -167,8 +166,8 @@ class MainWindow(main_baseClass):
 
             elif attr == "_skills":
                 for skill in val:
-                    name = skill if not skill == 'slieght of hand' else 'slieght_of_hand'
-                    value = char.skills[name][1] if not name == 'slieght_of_hand' else character.skills['slieght of hand'][1]
+                    name = "_".join(skill.split(" ")) if not "_" in skill else skill 
+                    value = char.skills[name][1] if "_" not in name  else character.skills[" ".join(name.split("_"))][1]
                     ui_attribute = getattr(self.ui, f"{name}_val", "none")
                     ui_attribute.setText(str(value))
 
@@ -377,8 +376,7 @@ class Create_Char_Form(create_char_class):
         for box in self.skills_form.ui.verticalLayoutWidget.children():
             if isinstance(box, QtWidgets.QLineEdit):
                 if "," in box.text():
-                    skills_payload = [item.strip().lower() if item.strip().lower() != "animal handling" else "animal_handling"
-                                      for item in box.text().split(",")]
+                    skills_payload = [item.strip().lower() for item in box.text().split(",")]
                 else:
                     error_box = QtWidgets.QMessageBox(self)
                     error_box.setText(

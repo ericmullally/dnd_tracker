@@ -43,7 +43,7 @@ class Character:
             "ep": 0}, {"gp": 0}, {"pp": 0}], "items": {}}
         self._characteristics = {"strength": [0, 0], "dexterity": [0, 0], "constitution": [
             0, 0], "intellegence": [0, 0], "wisdom": [0, 0], "charisma": [0, 0]}
-        self._skills = {"acrobatics": ["dexterity", 0], "animal_handling": ["wisdom", 0], "arcana": ["intellegence", 0], "athletics": ["strength", 0],
+        self._skills = {"acrobatics": ["dexterity", 0], "animal handling": ["wisdom", 0], "arcana": ["intellegence", 0], "athletics": ["strength", 0],
                         "deception": ["charisma", 0], "history": ["intellegence", 0], "insight": ["wisdom", 0], "intimidation": ["charisma", 0],
                         "investigation": ["intellegence", 0], "medicine": ["wisdom", 0], "nature": ["intellegence", 0], "perception": ["wisdom", 0],
                         "performance": ["charisma", 0], "persuation": ["charisma", 0], "religion": ["intellegence", 0], "slieght of hand": ["dexterity", 0],
