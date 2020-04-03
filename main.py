@@ -122,10 +122,10 @@ class MainWindow(main_baseClass):
                 f"You must first create, or load a character.")
             error_box.show()
             return
-
-        self.edit_form = Edit_form(form_name, character)
-        self.edit_form.update_characer.connect(self.update_form)
-        self.edit_form.show()
+        else:
+            self.edit_form = Edit_form(form_name, character)
+            self.edit_form.update_characer.connect(self.update_form)
+            self.edit_form.show()
 
     @QtCore.pyqtSlot(object)
     def update_form(self, char):

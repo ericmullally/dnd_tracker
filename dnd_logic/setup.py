@@ -1,9 +1,10 @@
-from Character import Character as ch
+
 
 import math
 import sys
 import json
-from dnd_logic.set_saving_throws import set_saving_throws
+from dnd_logic.set_saving_throws import set_saving_throws # dont need
+
 
 
 with open("reference_data/classes_summary.json", mode="r") as class_flie:

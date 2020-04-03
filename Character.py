@@ -5,7 +5,6 @@ import json
 class Character:
     def __init__(self, name, level=1):
         self.name = name
-        self._clss = ""
         self._background = ""
         self._race = ""
         self.alignment = ""
@@ -53,19 +52,19 @@ class Character:
         self.other_proficiencies_languages = []
         self.notes = ""
 
-    @property
-    def clss(self):
-        return self._clss
+    # @property
+    # def clss(self):
+    #     return self._clss
 
-    @clss.setter
-    def clss(self, string):
-        available_classes = ("Barbarian", "Bard", "Cleric", "Druid",
-                             "Fighter", "Monk", "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard")
-        if string.capitalize().strip() not in available_classes:
-            raise ValueError(
-                f"There is no class availiable: {string}. please check your spelling")
-        else:
-            self._clss = string.capitalize().strip()
+    # @clss.setter
+    # def clss(self, string):
+    #     available_classes = ("Barbarian", "Bard", "Cleric", "Druid",
+    #                          "Fighter", "Monk", "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard")
+    #     if string.capitalize().strip() not in available_classes:
+    #         raise ValueError(
+    #             f"There is no class availiable: {string}. please check your spelling")
+    #     else:
+    #         self._clss = string.capitalize().strip()
 
     @property
     def background(self):
