@@ -100,7 +100,7 @@ class Edit_form(QtWidgets.QWidget):
                     "please type a skill or language to add.")
                 error_message.show()
             else:
-                character.other_proficiencies_languages.append(
+                character.other_skills_languages.append(
                     self.ui.skills_input.text())
                 self.update_characer.emit(character)
                 self.close()

@@ -2,7 +2,6 @@ import sys
 import json
 import os
 import re
-from Character import Character
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from dnd_logic.setup import setup
@@ -17,7 +16,6 @@ from widgets_file.custom_message_box import Custom_message_box
 from widgets_file.Edit_forms import Edit_form
 
 
-
 Ui_MainWindow, main_baseClass = uic.loadUiType("DND_tracker_1_main_page.ui")
 UI_create_char, create_char_class = uic.loadUiType(
     "forms/ui_forms/create_char_form.ui")
@@ -27,13 +25,14 @@ with open("reference_data/classes_summary.json", mode="r") as classes_file:
     classes_json = json.load(classes_file)
 
 
-character = Character("none")
-
-
 class MainWindow(main_baseClass):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.character = None
+        # need to make a snapshot of exp to know if user is leveling
+        # or just changing other stats
+        self.previous_xp = 0
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.create_button.clicked.connect(self.risk_create)
@@ -59,7 +58,7 @@ class MainWindow(main_baseClass):
         self.show()
 
     def risk_create(self):
-        if character.name != "none":
+        if self.character != None:
             self.warning_box = Custom_message_box(
                 "your current character may be overwritten")
             self.warning_box.chossen.connect(self.show_create_form)
@@ -68,7 +67,7 @@ class MainWindow(main_baseClass):
             self.show_create_form(True)
 
     def risk_load(self):
-        if character.name != "none":
+        if self.character != None:
             self.warning_box = Custom_message_box(
                 "your current character may be overwritten")
             self.warning_box.chossen.connect(self.load_char)
@@ -78,9 +77,9 @@ class MainWindow(main_baseClass):
 
     def save_char(self):
         try:
-            save_character(character)
+            save_character(self.character)
             success_message = QtWidgets.QMessageBox(self)
-            success_message.setText(f"Character {character.name} saved!")
+            success_message.setText(f"Character {self.character.name} saved!")
             success_message.show()
         except:
             error_box = QtWidgets.QMessageBox(self)
@@ -89,7 +88,6 @@ class MainWindow(main_baseClass):
 
     @QtCore.pyqtSlot(bool)
     def load_char(self, choice):
-        global character
         if choice == True:
             if os.path.exists("characters"):
                 char_folder = os.listdir("characters")
@@ -116,23 +114,29 @@ class MainWindow(main_baseClass):
 
     def show_edit_form(self, form_button):
         form_name = form_button.objectName().split('_')[0]
-        if character.name == "none":
+        if self.character == None:
             error_box = QtWidgets.QMessageBox(self)
             error_box.setText(
                 f"You must first create, or load a character.")
             error_box.show()
             return
         else:
-            self.edit_form = Edit_form(form_name, character)
+            self.edit_form = Edit_form(form_name, self.character)
             self.edit_form.update_characer.connect(self.update_form)
             self.edit_form.show()
 
     @QtCore.pyqtSlot(object)
     def update_form(self, char):
-        global character
-        character = char
         pattern = "^\_"
-        character.level_up()
+
+        if self.character == None:
+            self.character = char
+            self.previous_xp = char.exp
+
+        if self.sender().objectName() == 'hp_xp_edit_form':
+            if char.exp != self.previous_xp:
+                self.previous_xp = char.exp
+                self.character.level_up()
 
         for attr, val in char.__dict__.items():
 
@@ -145,13 +149,13 @@ class MainWindow(main_baseClass):
                     ui_display_label.setText(str(value[0]))
                     ui_display_mod.setText(str(value[1]))
 
-            elif attr == "_saving_throws":
+            elif attr == "saving_throws":
                 for st_name, value in val.items():
                     ui_st_display = getattr(
                         self.ui, f"st_{st_name.lower()}_val")
                     ui_st_display.setText(str(value))
 
-            elif attr == "other_proficiencies_languages":
+            elif attr == "other_skills_languages":
                 label_list = map(lambda lang: QtWidgets.QLabel(
                     lang, self.ui.other_skills_scrollarea), val)
                 for i in reversed(range(self.ui.verticalLayout_other_skills.count())):
@@ -166,8 +170,10 @@ class MainWindow(main_baseClass):
 
             elif attr == "_skills":
                 for skill in val:
-                    name = "_".join(skill.split(" ")) if not "_" in skill else skill 
-                    value = char.skills[name][1] if "_" not in name  else character.skills[" ".join(name.split("_"))][1]
+                    name = "_".join(skill.split(
+                        " ")) if not "_" in skill else skill
+                    value = char.skills[name][1] if "_" not in name else self.character.skills[" ".join(
+                        name.split("_"))][1]
                     ui_attribute = getattr(self.ui, f"{name}_val", "none")
                     ui_attribute.setText(str(value))
 
@@ -180,10 +186,12 @@ class MainWindow(main_baseClass):
                                 getattr(self.ui, f"{cur[0]}_val").setText(
                                     str(cur[1]))
                     else:
+                        for i in reversed(range(self.ui.equipment_layout.count())):
+                            self.ui.equipment_layout.itemAt(
+                                i).widget().setParent(None)
+
                         if len(equip[1]) != 0:
-                            for i in reversed(range(self.ui.equipment_layout.count())):
-                                self.ui.equipment_layout.itemAt(
-                                    i).widget().setParent(None)
+
                             equipment_items = list(equip[1].items())
 
                             equipment_buttons = map(lambda item_tup: QtWidgets.QPushButton(
@@ -266,28 +274,28 @@ class MainWindow(main_baseClass):
                     ui_attribute.setText(str(val))
 
     def show_spells(self):
-        if character.name == "none":
+        if self.character == None:
             error_box = QtWidgets.QMessageBox(self)
             error_box.setText("You have no chatracter loaded.")
             error_box.show()
             return
         else:
-            self.spell_display = Spell_display(character)
+            self.spell_display = Spell_display(self.character)
             self.spell_display.show()
 
     def remove_item(self):
-        global character
         button_clicked = self.sender()
         confirmation = QtWidgets.QMessageBox.question(
             self, "confirm delete", "Are you sure you want to remove this item?")
 
         if confirmation == QtWidgets.QMessageBox.Yes:
             if button_clicked.parent().objectName() == "attack_scroll_content":
-                del(character.attacks[button_clicked.objectName()])
-                self.update_form(character)
+                del(self.character.attacks[button_clicked.objectName()])
+                self.update_form(self.character)
             elif button_clicked.parent().objectName() == "scrollArea_equipment":
-                del(character.equipment["items"][button_clicked.objectName()])
-                self.update_form(character)
+                del(self.character.equipment["items"]
+                    [button_clicked.objectName()])
+                self.update_form(self.character)
             else:
                 # will never be called
                 print(button_clicked.objectName())
@@ -295,15 +303,16 @@ class MainWindow(main_baseClass):
             return
 
     def show_description(self):
-        global character
-        if character.name == "none":
+
+        if self.character == None:
             error_message = QtWidgets.QMessageBox(self)
             error_message.setText("You must load or create a character.")
             error_message.show()
             return
         else:
             self.character_description_form = Character_description(character)
-            self.character_description_form.finish_edit.connect(self.update_form)
+            self.character_description_form.finish_edit.connect(
+                self.update_form)
             self.character_description_form.show()
 
 
@@ -376,7 +385,8 @@ class Create_Char_Form(create_char_class):
         for box in self.skills_form.ui.verticalLayoutWidget.children():
             if isinstance(box, QtWidgets.QLineEdit):
                 if "," in box.text():
-                    skills_payload = [item.strip().lower() for item in box.text().split(",")]
+                    skills_payload = [item.strip().lower()
+                                      for item in box.text().split(",")]
                 else:
                     error_box = QtWidgets.QMessageBox(self)
                     error_box.setText(
@@ -415,8 +425,14 @@ class Create_Char_Form(create_char_class):
                 return
         self.char_dict["skills"] = skills_payload
         self.skills_form.close()
-        character = setup(self.char_dict)
-        self.submitted.emit(character)
+        try:
+            character = setup(self.char_dict)
+            self.submitted.emit(character)
+        except:
+            ex = sys.exc_info()
+            error_box = QtWidgets.QMessageBox(self)
+            error_box.setText(str(ex[1].args[0]))
+            error_box.show()
 
 
 if __name__ == "__main__":

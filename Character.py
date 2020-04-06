@@ -3,24 +3,23 @@ import json
 
 
 class Character:
-    def __init__(self, name, level=1):
+    def __init__(self, name):
         self.name = name
         self._background = ""
         self._race = ""
         self.alignment = ""
-        self.level = level
+        self.level = 1
         self.exp = 0
         self.armor_class = 0
         self.initiative = 0
         self.speed = 0
         self.hp = 0
         self.temp_hp = 0
-        self.hit_dice = ""
         self.personality = ""
         self.ideals = ""
         self.bonds = ""
         self.flaws = ""
-        self.proficiency_bonus = 0
+        self.proficiency_bonus = 2
         self.inspiration = 0
         self.passive_perception = 0
         self._looks = {"age": 0, "height": 0, "weight": 0,
@@ -30,13 +29,6 @@ class Character:
         self.allies_orginizations = []
         self.treassure = []
         self.features_traits = []
-        self.spell_casting_abilty = ""
-        self.spell_save_dc = 0
-        self.spell_attack_bonus = 0
-        self.cantrips = []
-        self.spell_slots = 0
-        self.spells = {"level_cantrip": [], "level_1": [], "level_2": [], "level_3": [], "level_4": [
-        ], "level_5": [], "level_6": [], "level_7": [], "level_8": [], "level_9": []}
         self._attacks = {}
         self._equipment = {"currency": [{"sp": 0}, {"cp": 0}, {
             "ep": 0}, {"gp": 0}, {"pp": 0}], "items": {}}
@@ -47,24 +39,10 @@ class Character:
                         "investigation": ["intellegence", 0], "medicine": ["wisdom", 0], "nature": ["intellegence", 0], "perception": ["wisdom", 0],
                         "performance": ["charisma", 0], "persuation": ["charisma", 0], "religion": ["intellegence", 0], "slieght of hand": ["dexterity", 0],
                         "stealth": ["dexterity", 0], "survival": ["wisdom", 0]}
-        self._saving_throws = {"Strength": 0, "Dexterity": 0,
-                               "Constitution": 0, "Intellegence": 0, "Wisdom": 0, "Charisma": 0}
-        self.other_proficiencies_languages = []
+        self.saving_throws = {"Strength": 0, "Dexterity": 0,
+                              "Constitution": 0, "Intellegence": 0, "Wisdom": 0, "Charisma": 0}
+
         self.notes = ""
-
-    # @property
-    # def clss(self):
-    #     return self._clss
-
-    # @clss.setter
-    # def clss(self, string):
-    #     available_classes = ("Barbarian", "Bard", "Cleric", "Druid",
-    #                          "Fighter", "Monk", "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard")
-    #     if string.capitalize().strip() not in available_classes:
-    #         raise ValueError(
-    #             f"There is no class availiable: {string}. please check your spelling")
-    #     else:
-    #         self._clss = string.capitalize().strip()
 
     @property
     def background(self):
@@ -118,9 +96,6 @@ class Character:
             typ = "normal"
         self._attacks[name] = {
             "attack bonus": attack_bonus, "dmg/type": [dmg, typ]}
-    @attacks.deleter
-    def attacks(self, name):
-        print(name)
 
     @property
     def characteristics(self):
@@ -138,7 +113,7 @@ class Character:
             return
         for char in self._characteristics:
             if char == characteristic:
-                self._characteristics[char][0] = points 
+                self._characteristics[char][0] = points
                 self._characteristics[char][1] = mod
 
     @property
@@ -175,33 +150,3 @@ class Character:
         else:
             skill_name, value = vals
             self._skills[skill_name][1] = value
-
-    @property
-    def saving_throws(self):
-        return self._saving_throws
-
-    @saving_throws.setter
-    def saving_throws(self, vals):
-        st_name, value = vals
-        if len(vals) != 2:
-            raise ValueError("name, value, and bool of saving throw required")
-        else:
-            self._saving_throws[st_name] = value
-
-    def level_up(self):
-        levels = [(0, 1, 2), (300, 2, 2), (900, 3, 2), (2700, 4, 2), (6500, 5, 3),
-                  (14000, 6, 3), (23000, 7, 3), (34000,
-                                                 8, 3), (48000, 9, 4), (64000, 10, 4),
-                  (85000, 11, 4), (100000, 12, 4), (120000,
-                                                    13, 5), (140000, 14, 5), (165000, 15, 5),
-                  (195000, 16, 5), (225000, 17, 6), (265000, 18, 6), (305000, 19, 6), (355000, 20, 6)]
-
-        for exp in levels:
-            if self.exp > exp[0]:
-                self.level = exp[1]
-                self.proficiency_bonus = exp[2]
-                self.hp = (int(self.hit_dice.split(
-                    "d")[1]) + self.characteristics["constitution"][1]) * self.level
-
-                self.spell_save_dc = 8 + self.proficiency_bonus + self.characteristics[
-                    self.spell_casting_abilty.lower()][1]

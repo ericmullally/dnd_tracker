@@ -1,32 +1,32 @@
-from character_classes import *
+from character_classes import (Barbarian, Bard, Cleric, Druid, Fighter, Monk,
+                               Paladin, Ranger, Rogue, Sorcerer, Warlock, Wizard)
 
 
-def choose_class(info):
-    class_type = info["class_val"].strip().capitalize()
+def choose_class(class_name, name, race, background):
 
-    if class_type == "Barbarian":
-        return character_classes.Barbarian.Barbarian(info["name_val"], info["race_val"],info["background_val"])
-    elif class_type == "Bard":
+    if class_name == "Barbarian":
+        return Barbarian.Barbarian(name, race, background)
+    elif class_name == "Bard":
         pass
-    elif class_type == "Cleric":
+    elif class_name == "Cleric":
         pass
-    elif class_type == "Druid":
+    elif class_name == "Druid":
         pass
-    elif class_type == "Fighter":
+    elif class_name == "Fighter":
         pass
-    elif class_type == "Monk":
+    elif class_name == "Monk":
         pass
-    elif class_type == "Paladin":
+    elif class_name == "Paladin":
         pass
-    elif class_type == "Ranger":
+    elif class_name == "Ranger":
         pass
-    elif class_type == "Rouge":
+    elif class_name == "Rouge":
         pass
-    elif class_type == "Sorcerer":
+    elif class_name == "Sorcerer":
         pass
-    elif class_type == "Warlock":
+    elif class_name == "Warlock":
         pass
-    elif class_type == "Wizard":
+    elif class_name == "Wizard":
         pass
     else:
         pass
