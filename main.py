@@ -2,23 +2,20 @@ import sys
 import json
 import os
 import re
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QAction
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
-from dnd_logic.setup import setup
 from dnd_logic.save_load_character import save_character
 
 
-from forms.Skills_form import Skills_form
 from forms.load_char_form import Load_char_form
 from forms.Spell_and_cantrip_display import Spell_display
 from forms.Character_description import Character_description
 from widgets_file.custom_message_box import Custom_message_box
 from widgets_file.Edit_forms import Edit_form
+from forms.Create_char_form import Create_Char_Form
 
 
 Ui_MainWindow, main_baseClass = uic.loadUiType("DND_tracker_1_main_page.ui")
-UI_create_char, create_char_class = uic.loadUiType(
-    "forms/ui_forms/create_char_form.ui")
 
 
 with open("reference_data/classes_summary.json", mode="r") as classes_file:
@@ -48,11 +45,9 @@ class MainWindow(main_baseClass):
             lambda: self.show_edit_form(self.ui.skills_edit))
         self.ui.feats_edit.clicked.connect(
             lambda: self.show_edit_form(self.ui.feats_edit))
-
         self.ui.xp_hp_edit_button.clicked.connect(
             lambda: self.show_edit_form(self.ui.xp_hp_edit_button))
 
-        self.ui.action_spells.triggered.connect(self.show_spells)
         self.ui.action_characteristics.triggered.connect(self.show_description)
 
         self.show()
@@ -137,6 +132,12 @@ class MainWindow(main_baseClass):
             if char.exp != self.previous_xp:
                 self.previous_xp = char.exp
                 self.character.level_up()
+
+        if hasattr(self.character, "spell_save_dc"):
+            action_spells = QAction("Spells", self)
+            self.ui.menumain.addAction(action_spells)
+            action_spells.setObjectName("action_spells")
+            action_spells.triggered.connect(self.show_spells)
 
         for attr, val in char.__dict__.items():
 
@@ -273,8 +274,9 @@ class MainWindow(main_baseClass):
                 if ui_attribute != "none":
                     ui_attribute.setText(str(val))
 
+# should only load spell action if character has spells
     def show_spells(self):
-        if self.character == None:
+        if self.character == None or not hasattr(self.character, "spell_save_dc"):
             error_box = QtWidgets.QMessageBox(self)
             error_box.setText("You have no chatracter loaded.")
             error_box.show()
@@ -314,125 +316,6 @@ class MainWindow(main_baseClass):
             self.character_description_form.finish_edit.connect(
                 self.update_form)
             self.character_description_form.show()
-
-
-class Create_Char_Form(create_char_class):
-    submitted = QtCore.pyqtSignal(object)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.ui = UI_create_char()
-        self.ui.setupUi(self)
-        self.ui.cancel_button.clicked.connect(self.close)
-        self.ui.submit_button.clicked.connect(self.submit_form)
-        self.char_dict = {}
-
-    def submit_form(self):
-
-        self.char_dict["attributes"] = {}
-        self.char_dict["other_proficiencies_languages"] = []
-
-        for item in self.ui.basic_info_groupbox.children():
-            if isinstance(item, QtWidgets.QLineEdit):
-                if len(item.text()) <= 0:
-                    error_box = QtWidgets.QMessageBox(self)
-                    error_box.setText(
-                        f"{item.objectName().split('_')[0]} can not be empty")
-
-                    error_box.show()
-                    return
-                else:
-                    self.char_dict[item.objectName()] = item.text(
-                    ).strip().capitalize()
-
-        for attr in self.ui.attribute_groupbox.children():
-            if isinstance(attr, QtWidgets.QSpinBox):
-                if attr.value() <= 0:
-                    error_box = QtWidgets.QMessageBox(self)
-                    error_box.setText(
-                        f"{attr.objectName().split('_')[0]} can not be empty")
-
-                    error_box.show()
-                    return
-                else:
-                    self.char_dict["attributes"].update(
-                        {attr.objectName(): attr.value()})
-
-        for language in self.ui.language_list.selectedItems():
-            self.char_dict["other_proficiencies_languages"].append(
-                language.text())
-
-        self.char_dict["alignment"] = self.ui.alignment_box.currentText()
-        self.char_dict["apperance"] = self.ui.apperance_text_val.toPlainText()
-        self.char_dict["backstory"] = self.ui.backstory_text_val.toPlainText()
-
-        try:
-            self.skills_form = Skills_form(self.char_dict["class_val"])
-            self.skills_form.ui.submit_button.clicked.connect(
-                self.skill_submitted)
-            self.skills_form.show()
-            self.close()
-        except Exception:
-            ex = sys.exc_info()
-            error_box = QtWidgets.QMessageBox(self)
-            error_box.setText(str(ex[1].args[0]))
-            error_box.show()
-
-    def skill_submitted(self, *args):
-        global character
-        skills_payload = []
-
-        for box in self.skills_form.ui.verticalLayoutWidget.children():
-            if isinstance(box, QtWidgets.QLineEdit):
-                if "," in box.text():
-                    skills_payload = [item.strip().lower()
-                                      for item in box.text().split(",")]
-                else:
-                    error_box = QtWidgets.QMessageBox(self)
-                    error_box.setText(
-                        " please use a comma to sperate choices. ")
-                    error_box.show()
-                    return
-            elif isinstance(box, QtWidgets.QCheckBox):
-                name = box.objectName().split("_")[0].strip().lower() if len(
-                    box.objectName().split("_")) <= 2 else box.objectName().split("_")[:2].strip().lower()
-                if box.isChecked():
-                    skills_payload.append(name)
-
-        if self.skills_form.ui.choices_number == "any 3 skills, use a comma to seperate choices":
-            available_skills = [item for item in character.skills]
-
-            if len(skills_payload) > 3 or len(skills_payload) < 3:
-                error_box = QtWidgets.QMessageBox(self)
-                error_box.setText("please choose 3 skills")
-                error_box.show()
-                return
-            else:
-                for payload_skill in skills_payload:
-                    if payload_skill not in available_skills:
-                        error_box = QtWidgets.QMessageBox(self)
-                        error_box.setText(
-                            f"{payload_skill} is not available. please check your spelling")
-                        error_box.show()
-                        return
-
-        else:
-            if len(skills_payload) > self.skills_form.ui.choices_number or len(skills_payload) < self.skills_form.ui.choices_number:
-                error_box = QtWidgets.QMessageBox(self)
-                error_box.setText(
-                    f"please choose {self.skills_form.ui.choices_number} skills")
-                error_box.show()
-                return
-        self.char_dict["skills"] = skills_payload
-        self.skills_form.close()
-        try:
-            character = setup(self.char_dict)
-            self.submitted.emit(character)
-        except:
-            ex = sys.exc_info()
-            error_box = QtWidgets.QMessageBox(self)
-            error_box.setText(str(ex[1].args[0]))
-            error_box.show()
 
 
 if __name__ == "__main__":

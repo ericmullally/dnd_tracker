@@ -21,15 +21,8 @@ class Barbarian(Character):
         self.available_skills = "2, Animal Handling, Athletics, Intimidation, Nature, Perception, Survival"
         self.speed = race_data[self.race]["Speed"]
 
-        # needs to be implemented later by player if allowed
-        # ==========================================================================================================
-        # self.spell_casting_abilty = ""
-        # self.spell_save_dc = 0
-        # self.spell_attack_bonus = 0
-        # self.cantrips = []
-        # self.spell_slots = 0
-        # self.spells = {"level_cantrip": [], "level_1": [], "level_2": [], "level_3": [], "level_4": [
-        # ], "level_5": [], "level_6": [], "level_7": [], "level_8": [], "level_9": []}
+        # incorperate the ability score increase,, let the player know it will be automatically calculated
+        self.ability_score_increase = race_data[self.race]["Ability Score Increase"]
 
     def level_up(self):
         levels = [(0, 1, 2), (300, 2, 2), (900, 3, 2), (2700, 4, 2), (6500, 5, 3),

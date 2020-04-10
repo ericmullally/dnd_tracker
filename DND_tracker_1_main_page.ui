@@ -390,7 +390,7 @@
       </font>
      </property>
      <property name="text">
-      <string>3000</string>
+      <string>0</string>
      </property>
     </widget>
     <widget class="QLabel" name="hp_label">
@@ -430,7 +430,7 @@
       </font>
      </property>
      <property name="text">
-      <string>30</string>
+      <string>0</string>
      </property>
     </widget>
     <widget class="QLabel" name="temp_hp_label">
@@ -2609,27 +2609,18 @@
      <x>0</x>
      <y>0</y>
      <width>1056</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menumain">
     <property name="title">
      <string>Menu</string>
     </property>
-    <addaction name="action_spells"/>
     <addaction name="action_characteristics"/>
    </widget>
    <addaction name="menumain"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="action_spells">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Spells</string>
-   </property>
-  </action>
   <action name="actionMain_info">
    <property name="checkable">
     <bool>true</bool>
@@ -2647,11 +2638,6 @@
    </property>
    <property name="text">
     <string>Character description</string>
-   </property>
-  </action>
-  <action name="actionInventory">
-   <property name="text">
-    <string>Inventory</string>
    </property>
   </action>
  </widget>

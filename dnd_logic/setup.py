@@ -12,13 +12,16 @@ with open("reference_data/classes_summary.json", mode="r") as class_flie:
 with open("reference_data/races_summary.json", mode="r") as race_flie:
     race_data = json.load(race_flie)
 
+with open("reference_data/background_proficiencies.json", mode="r") as background_flie:
+    background_proficiencies = json.load(background_flie)
+
 
 def setup(info):
     try:
         clss_string = info["class_val"]
         race_str = info["race_val"]
         name = info["name_val"]
-        background_str = info["background_val"]
+        background_str = info["background_val"].capitalize().strip()
 
         new_character = choose_class(
             clss_string, name, race_str, background_str)
@@ -77,7 +80,10 @@ def setup(info):
         for skill in new_character.skills:
             characteristic_needed = new_character.skills[skill][0]
 
-            if skill in info["skills"]:
+            background_skills = [proficiency.strip().lower(
+            ) for proficiency in background_proficiencies[new_character.background]["Skill Proficiencies"].split(",")]
+
+            if skill in info["skills"] or skill in background_skills:
                 points = new_character.characteristics[characteristic_needed][1] + \
                     new_character.proficiency_bonus
             else:

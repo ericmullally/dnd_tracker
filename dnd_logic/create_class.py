@@ -7,26 +7,27 @@ def choose_class(class_name, name, race, background):
     if class_name == "Barbarian":
         return Barbarian.Barbarian(name, race, background)
     elif class_name == "Bard":
-        pass
+        return Bard.Bard(name, race, background)
     elif class_name == "Cleric":
-        pass
+        return Cleric.Cleric(name, race, background)
     elif class_name == "Druid":
-        pass
+        return Druid.Druid(name, race, background)
     elif class_name == "Fighter":
-        pass
+        return Fighter.Fighter(name, race, background)
     elif class_name == "Monk":
-        pass
+        return Monk.Monk(name, race, background)
     elif class_name == "Paladin":
-        pass
+        return Paladin.Paladin(name, race, background)
     elif class_name == "Ranger":
-        pass
+        return Ranger.Ranger(name, race, background)
     elif class_name == "Rouge":
-        pass
+        return Rogue.Rogue(name, race, background)
     elif class_name == "Sorcerer":
-        pass
+        return Sorcerer.Sorcerer(name, race, background)
     elif class_name == "Warlock":
-        pass
+        return Warlock.Warlock(name, race, background)
     elif class_name == "Wizard":
-        pass
+        return Wizard.Wizard(name, race, background)
     else:
-        pass
+        raise ValueError(
+            f"{class_name} is not a supported class, please check your spelling.")

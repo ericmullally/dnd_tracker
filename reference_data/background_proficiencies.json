@@ -1,20 +1,70 @@
-{   
-    "Acolyte": "Insight, Religion", 
-    "Charlatan": "Deception, Sleight of Hand", 
-    "Criminal": "Deception, Stealth", 
-    "Spy": "Deception, Stealth", 
-    "Entertainer": "Acrobatics, Performance", 
-    "Folk Hero": "Animal Handling, Survival", 
-    "Gladiator": "Acrobatics, Performance", 
-    "Guild Artisan": "Insight, Persuasion",
-    "Guild Merchant": "Insight, Persuasion",
-    "Hermit": "Medicine, Religion", 
-    "Knight": "History, Persuasion", 
-    "Noble": "History, Persuasion", 
-    "Outlander": "Athletics, Survival", 
-    "Pirate": "Athletics, Perception", 
-    "Sage": "Arcana, History", 
-    "Sailor": "Athletics, Perception", 
-    "Soldier": "Athletics, Intimidation", 
-    "Urchin": "Sleight of Hand, Stealth"
-    }
+{
+  "Acolyte": {
+    "Skill Proficiencies": "Insight, Religion",
+    "Tools": "",
+    "Languages": "Any 2"
+  },
+  "Charlatan": {
+    "Skill Proficiencies": "Deception, Sleight of Hand",
+    "Tools": "Disguise Kit, Forgery Kit",
+    "Languages": ""
+  },
+
+  "Criminal": {
+    "Skill Proficiencies": "Deception, Stealth",
+    "Tools": "Gaming set x1, Thieves' tools",
+    "Languages": ""
+  },
+  "Entertainer": {
+    "Skill Proficiencies": "Acrobatics, Performance",
+    "Tools": "Disguise kit, Musical instrument x1",
+    "Languages": ""
+  },
+  "Folk Hero": {
+    "Skill Proficiencies": "Animal Handling, Survival",
+    "Tools": "Artisan's tools x1, Vehicles (land) ",
+    "Languages": ""
+  },
+  "Guild Artisan": {
+    "Skill Proficiencies": "Insight, Persuasion",
+    "Tools": "Artisan's tools x1",
+    "Languages": "any 1"
+  },
+  "Hermit": {
+    "Skill Proficiencies": "Medicine, Religion",
+    "Tools": "Herbalism kit",
+    "Languages": "any 1"
+  },
+  "Noble": {
+    "Skill Proficiencies": "History, Persuasion",
+    "Tools": "Gaming set x1",
+    "Languages": "any 1"
+  },
+  "Outlander": {
+    "Skill Proficiencies": "Athletics, Survival",
+    "Tools": "Musical instrument x1",
+    "Languages": "any 1"
+  },
+  "Sage": {
+    "Skill Proficiencies": "Arcana, History",
+    "Tools": "",
+    "Languages": "any 2"
+  },
+  "Sailor": {
+    "Skill Proficiencies": "Athletics, Perception",
+    "Tools": "Navigator's tools, Vehicles (water)",
+    "Languages": ""
+  },
+
+  "Soldier": {
+    "Skill Proficiencies": "Athletics, Intimidation",
+    "Tools": "Gaming set x1, Vehicles (land)",
+    "Languages": ""
+  },
+
+  "Urchin": {
+    "Skill Proficiencies": "Sleight of Hand, Stealth",
+    "Tools": "Disguise kit, Thieves' tools",
+    "Languages": ""
+  }
+}
