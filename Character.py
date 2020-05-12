@@ -1,9 +1,10 @@
 import re
 import json
+import math
 
 
 class Character:
-    def __init__(self, name):
+    def __init__(self, name, chosen_skills):
         self.name = name
         self._background = ""
         self._race = ""
@@ -32,13 +33,14 @@ class Character:
         self._attacks = {}
         self._equipment = {"currency": [{"sp": 0}, {"cp": 0}, {
             "ep": 0}, {"gp": 0}, {"pp": 0}], "items": {}}
-        self._characteristics = {"strength": [0, 0], "dexterity": [0, 0], "constitution": [
+        self.characteristics = {"strength": [0, 0], "dexterity": [0, 0], "constitution": [
             0, 0], "intellegence": [0, 0], "wisdom": [0, 0], "charisma": [0, 0]}
-        self._skills = {"acrobatics": ["dexterity", 0], "animal handling": ["wisdom", 0], "arcana": ["intellegence", 0], "athletics": ["strength", 0],
-                        "deception": ["charisma", 0], "history": ["intellegence", 0], "insight": ["wisdom", 0], "intimidation": ["charisma", 0],
-                        "investigation": ["intellegence", 0], "medicine": ["wisdom", 0], "nature": ["intellegence", 0], "perception": ["wisdom", 0],
-                        "performance": ["charisma", 0], "persuation": ["charisma", 0], "religion": ["intellegence", 0], "slieght of hand": ["dexterity", 0],
-                        "stealth": ["dexterity", 0], "survival": ["wisdom", 0]}
+        self.skills = {"acrobatics": ["dexterity", 0], "animal handling": ["wisdom", 0], "arcana": ["intellegence", 0], "athletics": ["strength", 0],
+                       "deception": ["charisma", 0], "history": ["intellegence", 0], "insight": ["wisdom", 0], "intimidation": ["charisma", 0],
+                       "investigation": ["intellegence", 0], "medicine": ["wisdom", 0], "nature": ["intellegence", 0], "perception": ["wisdom", 0],
+                       "performance": ["charisma", 0], "persuation": ["charisma", 0], "religion": ["intellegence", 0], "slieght of hand": ["dexterity", 0],
+                       "stealth": ["dexterity", 0], "survival": ["wisdom", 0]}
+        self.skills_picked = chosen_skills
         self.saving_throws = {"Strength": 0, "Dexterity": 0,
                               "Constitution": 0, "Intellegence": 0, "Wisdom": 0, "Charisma": 0}
 
@@ -98,55 +100,23 @@ class Character:
             "attack bonus": attack_bonus, "dmg/type": [dmg, typ]}
 
     @property
-    def characteristics(self):
-        return self._characteristics
-
-    @characteristics.setter
-    def characteristics(self, val):
-        try:
-            if len(val) == 3:
-                characteristic, points, mod = val
-            else:
-                raise ValueError("three arguments are required")
-        except ValueError as ve:
-            print(ve, "character characteristics setter error")
-            return
-        for char in self._characteristics:
-            if char == characteristic:
-                self._characteristics[char][0] = points
-                self._characteristics[char][1] = mod
-
-    @property
     def equipment(self):
         return self._equipment
 
     @equipment.setter
     def equipment(self, item):
-        equipment_list = [item for item in self._equipment]
-        if item[0].lower().strip() not in equipment_list:
-            raise ValueError(f"{item[0]} is not in equipment.")
-        elif len(item) != 3:
-            raise TypeError(
-                "incorrect number of arguments, please be sure to include type of item. weapon, currency, ect...")
-        else:
-            item_type, item_name, count = item
 
-            if item_type.lower().strip() == "currency":
-                currency_list = [list(val.keys())[0]
-                                 for val in self._equipment[item_type]]
-                currency_index = currency_list.index(item_name)
-                self._equipment[item_type][currency_index][item_name] = count
+        item_type, item_name, count_or_list = item
+
+        if item_type.lower().strip() == "currency":
+            currency_list = [list(val.keys())[0]
+                             for val in self._equipment[item_type]]
+            currency_index = currency_list.index(item_name)
+            self._equipment[item_type][currency_index][item_name] = count_or_list
+        else:
+            if not isinstance(count_or_list, list):
+                self._equipment[item_type][item_name] = count_or_list
             else:
-                self._equipment[item_type][item_name] = count
-
-    @property
-    def skills(self):
-        return self._skills
-
-    @skills.setter
-    def skills(self, vals):
-        if len(vals) != 2:
-            raise ValueError("name and points are required")
-        else:
-            skill_name, value = vals
-            self._skills[skill_name][1] = value
+                count = count_or_list[0]
+                description = count_or_list[1]
+                self._equipment[item_type][item_name] = (count, description)

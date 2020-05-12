@@ -9,11 +9,16 @@ Ui_Skills_form, skills_form_baseClass = uic.loadUiType(
 class Skills_form(skills_form_baseClass):
 
     def __init__(self, char_clss, *args, **kwargs):
+
         with open("reference_data/classes_summary.json", mode="r") as classes_file:
             classes_json = json.load(classes_file)
 
         super().__init__(*args, **kwargs)
-        self.class_skills = classes_json[char_clss]["skills"].split(",")
+        try:
+            self.class_skills = classes_json[char_clss]["skills"].split(",")
+        except:
+            raise Exception(
+                f"character class {char_clss} is not a recognized class")
         self.ui = Ui_Skills_form()
         self.ui.setupUi(self)
         self.ui.choices_number = int(

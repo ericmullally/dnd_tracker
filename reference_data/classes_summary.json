@@ -7,6 +7,7 @@
     "Spellcasting Ability": "none",
     "Spell save DC": 0,
     "Armor and Weapon Proficiencies": "Light and medium armor, shields, simple and martial weapons",
+    "Equipment": "a greataxe or any martial melee weapon, two handaxes or any simple weapon, An explorer’s pack and four javelins",
     "skills": "2, Animal Handling, Athletics, Intimidation, Nature, Perception, Survival"
   },
 
@@ -18,6 +19,7 @@
     "Spellcasting Ability": "Charisma",
     "Spell save DC": 8,
     "Armor and Weapon Proficiencies": "Light armor, simple weapons, hand crossbows, longswords, rapiers, shortswords",
+    "Equipment": "a rapier or a longsword or any simple weapon, a diplomat’s pack or an entertainer’s pack, a lute or any other musical instrument, Leather armor and a dagger",
     "skills": "Choose any three"
   },
 

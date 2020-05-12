@@ -1,13 +1,18 @@
 from Character import Character
 import json
+import sys
+import math
 
 with open("reference_data/races_summary.json", mode="r") as race_F:
     race_data = json.load(race_F)
 
+with open("reference_data/background_proficiencies.json", mode="r") as backgroud_f:
+    background_data = json.load(backgroud_f)
+
 
 class Warlock(Character):
-    def __init__(self, name, race, background):
-        super().__init__(name)
+    def __init__(self, name, race, background, chosen_skills):
+        super().__init__(name, chosen_skills)
         self.clss = "Warlock"
         self.background = background
         self.race = race
@@ -19,16 +24,21 @@ class Warlock(Character):
         self.available_skills = "2, Arcana, Deception, History, Intimidation, Investigation, Nature, Religion"
         self.speed = race_data[self.race]["Speed"]
         self.spell_save_dc = 8
-        self.spell_slots = 1
+        self.spell_slots = {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0}
         self.spell_casting_abilty = "Charisma"
-        self.spell_attack_bonus = self.characteristics[self.spell_casting_abilty.lower()][1] + \
-            self.proficiency_bonus
+        self.spell_attack_bonus = 0
 
         self.spells = {"level_cantrip": [], "level_1": [], "level_2": [], "level_3": [], "level_4": [
-        ], "level_5": [], "level_6": [], "level_7": [], "level_8": [], "level_9": []}
+        ], "level_5": [], "level_6": [], "level_7": [], "level_8": [], "level_9": [], "level_scrolls": []}
 
         # incorperate the ability score increase,, let the player know it will be automatically calculated
         self.ability_score_increase = race_data[self.race]["Ability Score Increase"]
+        self.background_skills = [proficiency.strip().lower(
+        ) for proficiency in background_data[self.background]["Skill Proficiencies"].split(",")]
+
+    def claculate_hp(self):
+        self.hp = (int(self.hit_dice.split(
+            "d")[1]) + self.characteristics["constitution"][1]) * self.level
 
     def level_up(self):
         levels = [(0, 1, 2), (300, 2, 2), (900, 3, 2), (2700, 4, 2), (6500, 5, 3),
@@ -42,9 +52,97 @@ class Warlock(Character):
             if self.exp > exp[0]:
                 self.level = exp[1]
                 self.proficiency_bonus = exp[2]
-                self.hp = (int(self.hit_dice.split(
-                    "d")[1]) + self.characteristics["constitution"][1]) * self.level
+                self.claculate_hp()
+                self.update_skills()
 
-            if hasattr(self, "spell_save_dc"):
-                self.spell_save_dc = 8 + self.proficiency_bonus + self.characteristics[
-                    self.spell_casting_abilty.lower()][1]
+        self.set_spell_slots()
+        if hasattr(self, "spell_save_dc"):
+            self.spell_save_dc = 8 + self.proficiency_bonus + self.characteristics[
+                self.spell_casting_abilty.lower()][1]
+            self.spell_attack_bonus = self.characteristics[self.spell_casting_abilty.lower()][1] + \
+                self.proficiency_bonus
+
+    def update_skills(self):
+
+        for skill in self.skills:
+            characteristic_needed = self.skills[skill][0]
+            if skill in self.skills_picked or skill in self.background_skills:
+                self.skills[skill][1] = self.characteristics[characteristic_needed][1] + \
+                    self.proficiency_bonus
+            else:
+                self.skills[skill][1] = self.characteristics[characteristic_needed][1]
+
+    def set_characteristics(self, name, val):
+        if val > 20:
+            val = 20
+        self.characteristics[name][0] = val
+        self.characteristics[name][1] = math.floor((val/2)-5)
+
+    def setup(self, info):
+        try:
+            clss_string = info["class_box"]
+            race_str = info["race_box"]
+            name = info["name_val"]
+            background_str = info["background_box"].capitalize().strip()
+
+            for attr in info["attributes"].items():
+                name, val = attr
+                ability_score_increase_list = self.ability_score_increase.split(
+                    ",")
+
+                if "All" in ability_score_increase_list[0]:
+                    val = val + 1
+                else:
+                    for ab_score in ability_score_increase_list:
+                        if name in [word.strip().lower() for word in ab_score.split("by")]:
+                            increase = int(ab_score.split("by")[1])
+                            val = val + increase
+
+                self.set_characteristics(name, val)
+
+            for lang in info["other_proficiencies_languages"]:
+                self.other_skills_languages.append(lang)
+
+            for trait in self.saving_throws:
+                points = self.characteristics[trait.lower(
+                ).strip()][1]
+
+                if trait in self.saving_throw_proficiencies:
+                    self.saving_throws[trait] = points + \
+                        self.proficiency_bonus
+                else:
+                    self.saving_throws[trait] = points
+
+            self.flaws = info["flaw_val"]
+            self.bonds = info["bonds_val"]
+
+            self.ideals = info["ideals_val"]
+            self.alignment = info["alignment"]
+
+            self.personality = info["personality_val"]
+            self.hp = self.characteristics["constitution"][1] + int(
+                self.hit_dice[2:])
+
+            self.apperance = info["apperance"]
+            self.backstory = info["backstory"]
+
+            self.armor_class = 10 + \
+                self.characteristics["dexterity"][1]
+            self.passive_perception = 8 + \
+                self.characteristics["wisdom"][1]
+            self.spell_attack_bonus = self.characteristics[self.spell_casting_abilty.lower()][1] + \
+                self.proficiency_bonus
+            self.update_skills()
+            self.set_spell_slots()
+        except:
+            ex = sys.exc_info()
+            print(ex[1])
+
+    def set_spell_slots(self):
+        slots = [(1, 1, 1), (2, 2, 1), (3, 2, 2), (4, 2, 2), (5, 2, 3), (6, 2, 3), (7, 2, 4), (8, 2, 4), (9, 2, 5), (10, 2, 5),
+                 (11, 3, 5), (12, 3, 5), (13, 3, 5), (14, 3, 5), (15, 3, 5), (16, 3, 5), (17, 4, 5), (18, 4, 5), (19, 4, 5), (20, 4, 5)]
+        for slot in slots:
+            if self.level == slot[0]:
+                self.spell_slots[f"{slot[2]}"] = slot[1]
+            elif self.level > slot[0]:
+                self.spell_slots[f"{slot[2]}"] = 0
