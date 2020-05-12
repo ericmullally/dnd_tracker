@@ -52,6 +52,9 @@ class Warlock(Character):
             if self.exp > exp[0]:
                 self.level = exp[1]
                 self.proficiency_bonus = exp[2]
+                self.passive_perception = 10 + \
+                    self.characteristics["wisdom"][1]
+
                 self.claculate_hp()
                 self.update_skills()
 
@@ -128,7 +131,7 @@ class Warlock(Character):
 
             self.armor_class = 10 + \
                 self.characteristics["dexterity"][1]
-            self.passive_perception = 8 + \
+            self.passive_perception = 10 + \
                 self.characteristics["wisdom"][1]
             self.spell_attack_bonus = self.characteristics[self.spell_casting_abilty.lower()][1] + \
                 self.proficiency_bonus

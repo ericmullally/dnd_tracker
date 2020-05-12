@@ -105,9 +105,11 @@ class Character:
 
     @equipment.setter
     def equipment(self, item):
-
-        item_type, item_name, count_or_list = item
-
+        if len(item) == 3:
+            item_type, item_name, count_or_list = item
+        else:
+            raise ValueError("must include item type, item name, and count.")
+            return
         if item_type.lower().strip() == "currency":
             currency_list = [list(val.keys())[0]
                              for val in self._equipment[item_type]]

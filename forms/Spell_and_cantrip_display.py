@@ -95,8 +95,9 @@ class Spell_display(Spell_and_cantrip_baseClass):
                 spell_delete_button.setSizePolicy(
                     QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
 
-                spell_delete_button.setMaximumWidth(15)
-                spell_delete_button.setMaximumHeight(14)
+                spell_delete_button.setMinimumSize(16, 17)
+                spell_delete_button.setMaximumSize(16, 17)
+
                 spell_delete_button.setStyleSheet("border-radius: 50px;" "border: 1px solid red;" "color:red;"
                                                   "font-size: 8px;")
                 spell_delete_button.setCursor(QtGui.QCursor(
