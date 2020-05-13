@@ -116,6 +116,7 @@ class MainWindow(main_baseClass):
                 return
         else:
             # //////////////////////////////////////////// add warning box that ability score is automatically calculated///////////
+
             self.cf = Create_Char_Form()
             self.cf.submitted.connect(self.update_form)
             self.cf.show()

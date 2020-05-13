@@ -66,8 +66,6 @@ class Barbarian(Character):
                 self.skills[skill][1] = self.characteristics[characteristic_needed][1]
 
     def set_characteristics(self, name, val):
-        if val > 20:
-            val = 20
         self.characteristics[name][0] = val
         self.characteristics[name][1] = math.floor((val/2)-5)
 

@@ -54,16 +54,25 @@ class Warlock(Character):
                 self.proficiency_bonus = exp[2]
                 self.passive_perception = 10 + \
                     self.characteristics["wisdom"][1]
+                for trait in self.saving_throws:
+                    points = self.characteristics[trait.lower(
+                    ).strip()][1]
+
+                    if trait in self.saving_throw_proficiencies:
+                        self.saving_throws[trait] = points + \
+                            self.proficiency_bonus
+                    else:
+                        self.saving_throws[trait] = points
 
                 self.claculate_hp()
                 self.update_skills()
 
         self.set_spell_slots()
-        if hasattr(self, "spell_save_dc"):
-            self.spell_save_dc = 8 + self.proficiency_bonus + self.characteristics[
-                self.spell_casting_abilty.lower()][1]
-            self.spell_attack_bonus = self.characteristics[self.spell_casting_abilty.lower()][1] + \
-                self.proficiency_bonus
+
+        self.spell_save_dc = 8 + self.proficiency_bonus + self.characteristics[
+            self.spell_casting_abilty.lower()][1]
+        self.spell_attack_bonus = self.characteristics[self.spell_casting_abilty.lower()][1] + \
+            self.proficiency_bonus
 
     def update_skills(self):
 
@@ -76,17 +85,11 @@ class Warlock(Character):
                 self.skills[skill][1] = self.characteristics[characteristic_needed][1]
 
     def set_characteristics(self, name, val):
-        if val > 20:
-            val = 20
         self.characteristics[name][0] = val
         self.characteristics[name][1] = math.floor((val/2)-5)
 
     def setup(self, info):
         try:
-            clss_string = info["class_box"]
-            race_str = info["race_box"]
-            name = info["name_val"]
-            background_str = info["background_box"].capitalize().strip()
 
             for attr in info["attributes"].items():
                 name, val = attr
