@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from dnd_logic.save_load_character import load_character
+import sys
 UI_load_char, char_load_class = uic.loadUiType(
     "forms/ui_forms/load_char_form.ui")
 
@@ -24,6 +25,7 @@ class Load_char_form(char_load_class):
             self.load_submmited.emit(self.character)
             self.close()
         except:
+            ex = sys.exc_info()
             error_message = QtWidgets.QMessageBox()
             error_message.setText("something has gone awry")
             error_message.show()

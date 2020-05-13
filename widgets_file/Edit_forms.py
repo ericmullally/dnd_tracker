@@ -32,6 +32,7 @@ class Edit_form(QtWidgets.QWidget):
         self.set_vals(character)
 
     def set_vals(self, character):
+        # some of these use tuples, which will have to be changed to make them editable.
         if self.objectName() == "currency_form":
             for currency in character.equipment["currency"]:
                 curr_info = list(currency.items())[0]
@@ -79,7 +80,7 @@ class Edit_form(QtWidgets.QWidget):
                 error_message.show()
             else:
                 character.equipment = (
-                    "items", self.ui.name_input.text(), self.ui.count_input.value())
+                    "items", self.ui.name_input.text(),(self.ui.count_input.value(), self.ui.description_val.toPlainText()))
                 self.update_characer.emit(character)
                 self.close()
 
@@ -89,7 +90,8 @@ class Edit_form(QtWidgets.QWidget):
                 error_message.setText("please type a feature to add.")
                 error_message.show()
             else:
-                character.features_traits.append(self.ui.feats_input.text())
+                character.features_traits.append(
+                    (self.ui.feats_input.text(), self.ui.description_input.toPlainText()))
                 self.update_characer.emit(character)
                 self.close()
         if self.objectName() == "other_skills_form":

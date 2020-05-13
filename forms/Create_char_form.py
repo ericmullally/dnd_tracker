@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from forms.Skills_form import Skills_form
-from dnd_logic.setup import setup
+from dnd_logic.create_class import choose_class
 import sys
 
 
@@ -33,9 +33,16 @@ class Create_Char_Form(create_char_class):
 
                     error_box.show()
                     return
+
                 else:
                     self.char_dict[item.objectName()] = item.text(
                     ).strip().capitalize()
+
+            elif isinstance(item, QtWidgets.QComboBox):
+                self.char_dict[item.objectName()] = item.currentText()
+
+            else:
+                pass
 
         for attr in self.ui.attribute_groupbox.children():
             if isinstance(attr, QtWidgets.QSpinBox):
@@ -59,7 +66,7 @@ class Create_Char_Form(create_char_class):
         self.char_dict["backstory"] = self.ui.backstory_text_val.toPlainText()
 
         try:
-            self.skills_form = Skills_form(self.char_dict["class_val"])
+            self.skills_form = Skills_form(self.char_dict["class_box"])
             self.skills_form.ui.submit_button.clicked.connect(
                 self.skill_submitted)
             self.skills_form.show()
@@ -67,11 +74,11 @@ class Create_Char_Form(create_char_class):
         except Exception:
             ex = sys.exc_info()
             error_box = QtWidgets.QMessageBox(self)
-            error_box.setText(str(ex[1].args[0]))
+            error_box.setText(f"{str(ex[1].args[0])}")
             error_box.show()
 
     def skill_submitted(self, *args):
-        global character
+        # global character
         skills_payload = []
 
         for box in self.skills_form.ui.verticalLayoutWidget.children():
@@ -94,7 +101,7 @@ class Create_Char_Form(create_char_class):
         if self.skills_form.ui.choices_number == "any 3 skills, use a comma to seperate choices":
             available_skills = [item for item in character.skills]
 
-            if len(skills_payload) > 3 or len(skills_payload) < 3:
+            if len(skills_payload) != 3:
                 error_box = QtWidgets.QMessageBox(self)
                 error_box.setText("please choose 3 skills")
                 error_box.show()
@@ -109,7 +116,7 @@ class Create_Char_Form(create_char_class):
                         return
 
         else:
-            if len(skills_payload) > self.skills_form.ui.choices_number or len(skills_payload) < self.skills_form.ui.choices_number:
+            if len(skills_payload) != self.skills_form.ui.choices_number:
                 error_box = QtWidgets.QMessageBox(self)
                 error_box.setText(
                     f"please choose {self.skills_form.ui.choices_number} skills")
@@ -118,7 +125,9 @@ class Create_Char_Form(create_char_class):
         self.char_dict["skills"] = skills_payload
         self.skills_form.close()
         try:
-            character = setup(self.char_dict)
+            character = choose_class(
+                self.char_dict["class_box"], self.char_dict["name_val"], self.char_dict["race_box"], self.char_dict["background_box"], self.char_dict["skills"])
+            character.setup(self.char_dict)
             self.submitted.emit(character)
         except:
             ex = sys.exc_info()

@@ -1,58 +1,96 @@
 {
-"Dragonborn":{"Ability Score Increase":"Strength increases by 2, Charisma increases by 1","Speed": 30, "Draconic Ancestry": { "Black":{	"Acid" :"5x30", "type": "line", "save": "Dex"},
-            "Blue":	{"Lightning":"5x30", "type": "line" ,"save":"Dex"},
-            "Brass":	{"Fire":"5x30", "type": "line", "save": "Dex"},
-            "Bronze":	{"Lightning":"5x30", "type":"line", "save":"Dex"},
-            "Copper":	{"Acid":"5x30", "type": "line", "save": "Dex"},
-            "Gold":	{"Fire":"15", "type":"cone", "save":"Dex"},
-            "Green":	{"Poison":"15", "type": "cone", "save": "Con"},
-            "Red":	{"Fire":"15", "type": "cone",  "save":"Dex"},
-            "Silver":	{"Cold":"15", "type": "cone", "save": "Con"},
-            "White":	{"Cold":"15", "type": "cone", "save": "Con"}
-            }, 
-            "Languages":"Common, Draconic"  
-},
-"Dwarf":{"Ability Score Increase":"Constitution by 2", "Speed": 25, "traits":{ "dark vision":"60 ft", 
-    "Combat Training":["battleaxe", "handaxe", "light", "hammer", "warhammer"],
-    "Tool Proficiency":["smith’s tools", "brewer’s supplies",  "mason’s tools"]
-    }, "Languages":"Common, Dwarvish"
-
-},	 
-"Elf":{"Ability Score Increase":  "Dexterity by 2", "Speed":30, "traits": 
-    {"dark vision":"60 ft", 
-    "Keen senses": "Perception"}, 
-    "Languages":"Common, Elvish."}, 	 
-"Gnome":{"Ability Score Increase":"Intelligence by 2", "Speed": 25, "traits":{
-    "dark vision":"60 ft", 
-    "Gnome Cunning":["Intelligence", "Wisdom","Charisma"]
-    }, "Languages":"Common, Gnomish"
-
-},	
-"Half-elf":{"Ability Score Increase":"Charisma by 2","Speed":30, "traits":{
-    "dark vision":"60 ft", 
-    "Skill Versatility":"You gain proficiency in two skills of your choice"
-    }, "Languages":"Common, Elvish, one extra language of your choice"
-
-},	
-"Half-orc":{"Ability Score Increase":"Strength by 2","Speed":30, "traits":{
-    "dark vision":"60 ft",
-    "Menacing":"You gain proficiency in the Intimidation"
-
-    }, "Languages":"Common, Orc"
-},	
-"Halfling":{"Ability Score Increase":"Dexterity by 2", "Speed":25, "traits":{
-    "Lucky":"roll a 1 on the d20 for attack, ability, or saving throw, you can reroll the die.",
-    "Brave":"Advantage on saving throws against frightened"
-}, "Languages":"Common, Halfling"
-
-},	
-"Human"	:{"Ability Score Increase":"All by 1", "Speed":30, "traits":"",
-"Languages":"Common, one extra language of your choice"
-}, 
-"Tiefling":{"Ability Score Increase":"Intelligence by 1", "Speed":30, "traits":{
-    "dark vision":"60 ft",
-    "Hellish Resistance":"You have resistance to fire damage"
-}, "Languages":"Common, Infernal"
-
-}
+  "Dragonborn": {
+    "Ability Score Increase": "Strength by 2, Charisma by 1",
+    "Speed": 30,
+    "Draconic Ancestry": {
+      "Black": { "Acid": "5x30", "type": "line", "save": "Dex" },
+      "Blue": { "Lightning": "5x30", "type": "line", "save": "Dex" },
+      "Brass": { "Fire": "5x30", "type": "line", "save": "Dex" },
+      "Bronze": { "Lightning": "5x30", "type": "line", "save": "Dex" },
+      "Copper": { "Acid": "5x30", "type": "line", "save": "Dex" },
+      "Gold": { "Fire": "15", "type": "cone", "save": "Dex" },
+      "Green": { "Poison": "15", "type": "cone", "save": "Con" },
+      "Red": { "Fire": "15", "type": "cone", "save": "Dex" },
+      "Silver": { "Cold": "15", "type": "cone", "save": "Con" },
+      "White": { "Cold": "15", "type": "cone", "save": "Con" }
+    },
+    "Languages": "Common, Draconic"
+  },
+  "Dwarf": {
+    "Ability Score Increase": "Constitution by 2",
+    "Speed": 25,
+    "traits": {
+      "dark vision": "60 ft",
+      "Combat Training": [
+        "battleaxe",
+        "handaxe",
+        "light",
+        "hammer",
+        "warhammer"
+      ],
+      "Tool Proficiency": [
+        "smith’s tools",
+        "brewer’s supplies",
+        "mason’s tools"
+      ]
+    },
+    "Languages": "Common, Dwarvish"
+  },
+  "Elf": {
+    "Ability Score Increase": "Dexterity by 2",
+    "Speed": 30,
+    "traits": { "dark vision": "60 ft", "Keen senses": "Perception" },
+    "Languages": "Common, Elvish."
+  },
+  "Gnome": {
+    "Ability Score Increase": "Intelligence by 2",
+    "Speed": 25,
+    "traits": {
+      "dark vision": "60 ft",
+      "Gnome Cunning": ["Intelligence", "Wisdom", "Charisma"]
+    },
+    "Languages": "Common, Gnomish"
+  },
+  "Half-elf": {
+    "Ability Score Increase": "Charisma by 2",
+    "Speed": 30,
+    "traits": {
+      "dark vision": "60 ft",
+      "Skill Versatility": "You gain proficiency in two skills of your choice"
+    },
+    "Languages": "Common, Elvish, one extra language of your choice"
+  },
+  "Half-orc": {
+    "Ability Score Increase": "Strength by 2",
+    "Speed": 30,
+    "traits": {
+      "dark vision": "60 ft",
+      "Menacing": "You gain proficiency in the Intimidation"
+    },
+    "Languages": "Common, Orc"
+  },
+  "Halfling": {
+    "Ability Score Increase": "Dexterity by 2",
+    "Speed": 25,
+    "traits": {
+      "Lucky": "roll a 1 on the d20 for attack, ability, or saving throw, you can reroll the die.",
+      "Brave": "Advantage on saving throws against frightened"
+    },
+    "Languages": "Common, Halfling"
+  },
+  "Human": {
+    "Ability Score Increase": "All by 1",
+    "Speed": 30,
+    "traits": "",
+    "Languages": "Common, one extra language of your choice"
+  },
+  "Tiefling": {
+    "Ability Score Increase": "Intelligence by 1",
+    "Speed": 30,
+    "traits": {
+      "dark vision": "60 ft",
+      "Hellish Resistance": "You have resistance to fire damage"
+    },
+    "Languages": "Common, Infernal"
+  }
 }

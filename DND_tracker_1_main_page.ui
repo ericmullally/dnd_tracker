@@ -2360,6 +2360,15 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string/>
+    </property>
+    <property name="toolTipDuration">
+     <number>2</number>
+    </property>
     <property name="text">
      <string>Attacks &amp; Spell Casting</string>
     </property>

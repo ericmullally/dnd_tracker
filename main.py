@@ -10,7 +10,6 @@ from dnd_logic.save_load_character import save_character
 from forms.load_char_form import Load_char_form
 from forms.Spell_and_cantrip_display import Spell_display
 from forms.Character_description import Character_description
-from widgets_file.custom_message_box import Custom_message_box
 from widgets_file.Edit_forms import Edit_form
 from forms.Create_char_form import Create_Char_Form
 
@@ -32,9 +31,11 @@ class MainWindow(main_baseClass):
         self.previous_xp = 0
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.create_button.clicked.connect(self.risk_create)
+        self.setWindowTitle("D&D Tracker")
+
+        self.ui.create_button.clicked.connect(self.show_create_form)
         self.ui.save_button.clicked.connect(self.save_char)
-        self.ui.load_button.clicked.connect(self.risk_load)
+        self.ui.load_button.clicked.connect(self.load_char)
         self.ui.currency_edit.clicked.connect(
             lambda: self.show_edit_form(self.ui.currency_edit))
         self.ui.equipment_edit.clicked.connect(
@@ -49,26 +50,9 @@ class MainWindow(main_baseClass):
             lambda: self.show_edit_form(self.ui.xp_hp_edit_button))
 
         self.ui.action_characteristics.triggered.connect(self.show_description)
+        self.ui.attacks_title.setToolTip("Click an item to remove it.")
 
         self.show()
-
-    def risk_create(self):
-        if self.character != None:
-            self.warning_box = Custom_message_box(
-                "your current character may be overwritten")
-            self.warning_box.chossen.connect(self.show_create_form)
-            self.warning_box.show()
-        else:
-            self.show_create_form(True)
-
-    def risk_load(self):
-        if self.character != None:
-            self.warning_box = Custom_message_box(
-                "your current character may be overwritten")
-            self.warning_box.chossen.connect(self.load_char)
-            self.warning_box.show()
-        else:
-            self.load_char(True)
 
     def save_char(self):
         try:
@@ -78,13 +62,34 @@ class MainWindow(main_baseClass):
             success_message.show()
         except:
             error_box = QtWidgets.QMessageBox(self)
-            error_box.setText("you must first create a character.")
+            error_box.setText("you must first create or load a character.")
             error_box.show()
 
-    @QtCore.pyqtSlot(bool)
-    def load_char(self, choice):
-        if choice == True:
-            if os.path.exists("characters"):
+    def load_char(self):
+        if self.character != None:
+            # if a character is currently loaded shows a warning that the current character may be overwritten.
+            # else just shows the load form
+            warning_box = QtWidgets.QMessageBox.question(
+                self, "Confirm Load", "Your current character may be overwritten, Continue?")
+
+            if warning_box == QtWidgets.QMessageBox.Yes:
+                if os.path.exists("characters"):
+                    char_folder = os.listdir("characters")
+                    available_chars = []
+                    for char in char_folder:
+                        available_chars.append(
+                            char.split("_")[2].split(".")[0])
+                    self.ui.load_char_form = Load_char_form(available_chars)
+                    self.ui.load_char_form.load_submmited.connect(
+                        self.update_form)
+                else:
+                    error_box = QtWidgets.QMessageBox(self)
+                    error_box.setText("No characters found.")
+                    error_box.show()
+            else:
+                return
+        else:
+            if os.path.exists("characters") and len(os.listdir("characters")) > 0:
                 char_folder = os.listdir("characters")
                 available_chars = []
                 for char in char_folder:
@@ -95,17 +100,25 @@ class MainWindow(main_baseClass):
                 error_box = QtWidgets.QMessageBox(self)
                 error_box.setText("No characters found.")
                 error_box.show()
-        else:
-            return
 
-    @QtCore.pyqtSlot(bool)
-    def show_create_form(self, choice):
-        if choice == True:
+    def show_create_form(self):
+        # if a character is currently loaded shows a warning that the current character may be overwritten.
+        # else just shows the create form
+        if self.character != None:
+            warning_box = QtWidgets.QMessageBox.question(
+                self, "Confirm Load", "Your current character may be overwritten, Continue?")
+
+            if warning_box == QtWidgets.QMessageBox.Yes:
+                self.cf = Create_Char_Form()
+                self.cf.submitted.connect(self.update_form)
+                self.cf.show()
+            else:
+                return
+        else:
+            # //////////////////////////////////////////// add warning box that ability score is automatically calculated///////////
             self.cf = Create_Char_Form()
             self.cf.submitted.connect(self.update_form)
             self.cf.show()
-        else:
-            return
 
     def show_edit_form(self, form_button):
         form_name = form_button.objectName().split('_')[0]
@@ -124,7 +137,7 @@ class MainWindow(main_baseClass):
     def update_form(self, char):
         pattern = "^\_"
 
-        if self.character == None:
+        if self.character == None or char.name != self.character.name:
             self.character = char
             self.previous_xp = char.exp
 
@@ -132,16 +145,19 @@ class MainWindow(main_baseClass):
             if char.exp != self.previous_xp:
                 self.previous_xp = char.exp
                 self.character.level_up()
-
-        if hasattr(self.character, "spell_save_dc"):
+        # checks if menu has action spell button and if required adds one.
+        self_childList = list(
+            map(lambda child: child.objectName(), self.children()))
+        if hasattr(self.character, "spell_save_dc") and "action_spells" not in self_childList:
+            # adds spells to action menu if character needs it.
             action_spells = QAction("Spells", self)
-            self.ui.menumain.addAction(action_spells)
             action_spells.setObjectName("action_spells")
             action_spells.triggered.connect(self.show_spells)
+            self.ui.menumain.addAction(action_spells)
 
         for attr, val in char.__dict__.items():
 
-            if attr == "_characteristics":
+            if attr == "characteristics":
                 for char_name, value in val.items():
                     ui_display_label = getattr(
                         self.ui, f"{char_name}_val", "none")
@@ -169,7 +185,7 @@ class MainWindow(main_baseClass):
                     label.setMinimumHeight(25)
                     self.ui.verticalLayout_other_skills.addWidget(label)
 
-            elif attr == "_skills":
+            elif attr == "skills":
                 for skill in val:
                     name = "_".join(skill.split(
                         " ")) if not "_" in skill else skill
@@ -198,10 +214,12 @@ class MainWindow(main_baseClass):
                             equipment_buttons = map(lambda item_tup: QtWidgets.QPushButton(
                                 item_tup[0],  flat=True), equipment_items)
                             equipment_counts = list(map(lambda item_tup: QtWidgets.QLabel(
-                                str(item_tup[1])), equipment_items))
+                                str(item_tup[1]) if not isinstance(item_tup[1], tuple) else str(item_tup[1][0])), equipment_items))
 
                             for i, button in enumerate(equipment_buttons):
                                 button.setObjectName(equipment_items[i][0])
+                                if isinstance(equipment_items[i][1], tuple):
+                                    button.setToolTip(equipment_items[i][1][1])
                                 button.clicked.connect(self.remove_item)
                                 button.setSizePolicy(
                                     QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -219,8 +237,10 @@ class MainWindow(main_baseClass):
             elif attr == "_attacks":
 
                 for i in reversed(range(self.ui.gridLayout_attacks.count())):
-                    self.ui.gridLayout_attacks.itemAt(
-                        i).widget().setParent(None)
+                    widgetToRemove = self.ui.gridLayout_attacks.itemAt(
+                        i).widget()
+                    widgetToRemove.setParent(None)
+                    widgetToRemove.deleteLater()
 
                 attack_widget_list = []
 
@@ -258,14 +278,18 @@ class MainWindow(main_baseClass):
 
             elif attr == "features_traits":
                 for i in reversed(range(self.ui.verticalLayout_feats_traits.count())):
-                    self.ui.verticalLayout_feats_traits.itemAt(
-                        i).widget().setParent(None)
+                    widgetToRemove = self.ui.verticalLayout_feats_traits.itemAt(
+                        i).widget()
+                    widgetToRemove.setParent(None)
+                    widgetToRemove.deleteLater()
 
                 for feat in val:
-                    feat_label = QtWidgets.QLabel(feat)
+                    feat_label = QtWidgets.QLabel(feat[0])
                     feat_label.setSizePolicy(
                         QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
                     feat_label.setMinimumHeight(25)
+
+                    feat_label.setToolTip(feat[1])
                     self.ui.verticalLayout_feats_traits.addWidget(feat_label)
 
             else:
@@ -274,9 +298,8 @@ class MainWindow(main_baseClass):
                 if ui_attribute != "none":
                     ui_attribute.setText(str(val))
 
-# should only load spell action if character has spells
     def show_spells(self):
-        if self.character == None or not hasattr(self.character, "spell_save_dc"):
+        if self.character == None:
             error_box = QtWidgets.QMessageBox(self)
             error_box.setText("You have no chatracter loaded.")
             error_box.show()
@@ -312,7 +335,8 @@ class MainWindow(main_baseClass):
             error_message.show()
             return
         else:
-            self.character_description_form = Character_description(character)
+            self.character_description_form = Character_description(
+                self.character)
             self.character_description_form.finish_edit.connect(
                 self.update_form)
             self.character_description_form.show()

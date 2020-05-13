@@ -1,0 +1,49 @@
+{
+  "Barbarian": {
+    "paths": "Ancestral Guardian, Battlerager, Beast (UA), Berserker, Storm Herald, Totem Warrior, Wild Soul (UA), Zealot"
+  },
+
+  "Bard": {
+    "paths": "Creation (UA), Eloquence (UA), Glamour, Lore, Satire (UA), Swords, Valor, Whispers"
+  },
+
+  "Cleric": {
+    "paths": "Arcana, Death , Forge, Grave , Knowledge , Life , Light , Nature , Order, Protection (UA), Tempest, Trickery, Twilight (UA), Unity (UA), War"
+  },
+
+  "Druid": {
+    "paths": "Dreams, Moon, Land, Shepherd, Spores, Stars (UA), Twilight (UA), Wildfire (UA)"
+  },
+
+  "Fighter": {
+    "paths": "Arcane Archer, Banneret, Battle Master , Brute (UA), Cavalier, Champion , Eldritch Knight, Knight (UA), Monster Hunter (UA), Psi Knight (UA) , Psychic Warrior (UA), Rune Knight (UA), Samurai, Scout (UA), Sharpshooter (UA)"
+  },
+
+  "Monk": {
+    "paths": "Astral Self (UA), Drunken Master, Four Elements, Kensei, Long Death, Mercy (UA), Open Hand, Shadow, Soul Knife (UA), Sun Soul, Tranquility (UA)"
+  },
+
+  "Paladin": {
+    "paths": "Ancients, Conquest, Crown, Devotion, Heroism (UA), Treachery (UA), Vengeance, Watchers (UA), Oathbreaker"
+  },
+
+  "Ranger": {
+    "paths": "Beast Master, Fey Wanderer (UA), Gloom Stalker, Horizon Walker, Hunter, Monster Slayer, Primeval Guardian (UA), Swarmkeeper (UA)"
+  },
+
+  "Rogue": {
+    "paths": "Arcane Trickster, Assassin, Inquisitive, Mastermind, Revived (UA), Scout, Soulknife (UA), Soulknife Revisited (UA), Swashbuckler, Thief"
+  },
+
+  "Sorcerer": {
+    "paths": "Aberrant Mind (UA), Clockwork Soul (UA), Draconic Bloodline, Divine Soul, Giant Soul (UA), Phoenix (UA), Psionic Soul (UA), Pyromancy (Kaladesh), Sea (UA), Shadow, Stone (UA), Storm, Wild Magic"
+  },
+
+  "Warlock": {
+    "paths": "Archfey, Celestial, Fiend, Great Old One, Hexblade, Kraken (UA), Lurker in the Deep (UA), Noble Genie (UA), Raven Queen (UA), Seeker (UA), Undying"
+  },
+
+  "Wizard": {
+    "paths": ", Abjuration, Bladesinger, Conjuration, Divination, Enchantment, Evocation, Illusion , Invention (UA), Lore Mastery (UA), Necromancy, Onomancy (UA), Psionics (UA), Theurgy (UA), Transmutation, War Magic"
+  }
+}
