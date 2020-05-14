@@ -83,10 +83,7 @@ class Warlock(Character):
 
     def setup(self, info):
         try:
-            clss_string = info["class_box"]
-            race_str = info["race_box"]
-            name = info["name_val"]
-            background_str = info["background_box"].capitalize().strip()
+           
 
             for attr in info["attributes"].items():
                 name, val = attr
