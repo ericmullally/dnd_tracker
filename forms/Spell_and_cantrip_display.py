@@ -18,21 +18,12 @@ class Spell_display(Spell_and_cantrip_baseClass):
         self.ui.spell_save_dc.setText(str(self.character.spell_save_dc))
         self.ui.spell_attack_bonus.setText(
             str(self.character.spell_attack_bonus))
-        for item in dir(self.ui):
-            if "slot" in item and item != "spell_slot_layout":
-                slot = getattr(self.ui, item)
-                value = self.character.spell_slots[
-                    slot.objectName().split("_")[1]] if int(slot.objectName().split("_")[1]) <= 5 else 0
-                slot.setValue(value)
-                if value == 0:
-                    slot.setEnabled(False)
-                else:
-                    slot.setEnabled(True)
 
         for item in dir(self.ui):
             if "add" in item:
                 button = getattr(self.ui, item)
                 button.clicked.connect(lambda: self.show_add_spell())
+        self.set_spell_slots()
         self.update_display_form()
 
     def show_add_spell(self):
@@ -96,8 +87,8 @@ class Spell_display(Spell_and_cantrip_baseClass):
                     QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
 
                 spell_delete_button.setMinimumSize(16, 17)
-                spell_delete_button.setMaximumSize(16,17)
-               
+                spell_delete_button.setMaximumSize(16, 17)
+
                 spell_delete_button.setStyleSheet("border-radius: 50px;" "border: 1px solid red;" "color:red;"
                                                   "font-size: 8px;")
                 spell_delete_button.setCursor(QtGui.QCursor(
@@ -137,3 +128,15 @@ class Spell_display(Spell_and_cantrip_baseClass):
             self.update_display_form()
         else:
             return
+
+    def set_spell_slots(self):
+        for item in dir(self.ui):
+            if "slot" in item and item != "spell_slot_layout":
+                slot = getattr(self.ui, item)
+                value = self.character.spell_slots[
+                    slot.objectName().split("_")[1]] if int(slot.objectName().split("_")[1]) <= 5 else 0
+                slot.setValue(value)
+                if value == 0:
+                    slot.setEnabled(False)
+                else:
+                    slot.setEnabled(True)

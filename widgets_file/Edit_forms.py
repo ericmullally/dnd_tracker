@@ -80,7 +80,7 @@ class Edit_form(QtWidgets.QWidget):
                 error_message.show()
             else:
                 character.equipment = (
-                    "items", self.ui.name_input.text(),(self.ui.count_input.value(), self.ui.description_val.toPlainText()))
+                    "items", self.ui.name_input.text(), (self.ui.count_input.value(), self.ui.description_val.toPlainText()))
                 self.update_characer.emit(character)
                 self.close()
 
