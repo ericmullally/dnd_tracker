@@ -16,7 +16,10 @@ class Create_Char_Form(create_char_class):
         self.ui = UI_create_char()
         self.ui.setupUi(self)
         self.ui.cancel_button.clicked.connect(self.close)
+        self.ui.cancel_button.setStyleSheet("background-color: 	rgb(240,128,128);")
         self.ui.submit_button.clicked.connect(self.submit_form)
+        self.ui.submit_button.setStyleSheet("background-color: 	rgb(50,205,50);")
+       
         self.char_dict = {}
 
     def submit_form(self):
@@ -99,7 +102,11 @@ class Create_Char_Form(create_char_class):
                     skills_payload.append(name)
 
         if self.skills_form.ui.choices_number == "any 3 skills, use a comma to seperate choices":
-            available_skills = [item for item in character.skills]
+            available_skills = ["acrobatics", "animal handling", "arcana", "athletics",
+                       "deception", "history", "insight", "intimidation",
+                       "investigation", "medicine", "nature", "perception",
+                       "performance", "persuation", "religion", "slieght of hand",
+                       "stealth", "survival"]
 
             if len(skills_payload) != 3:
                 error_box = QtWidgets.QMessageBox(self)
@@ -108,7 +115,7 @@ class Create_Char_Form(create_char_class):
                 return
             else:
                 for payload_skill in skills_payload:
-                    if payload_skill not in available_skills:
+                    if payload_skill.strip().lower() not in available_skills:
                         error_box = QtWidgets.QMessageBox(self)
                         error_box.setText(
                             f"{payload_skill} is not available. please check your spelling")
