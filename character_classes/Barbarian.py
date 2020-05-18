@@ -9,6 +9,9 @@ with open("reference_data/races_summary.json", mode="r") as race_F:
 with open("reference_data/background_proficiencies.json", mode="r") as backgroud_f:
     background_data = json.load(backgroud_f)
 
+with open("reference_data/classes_summary.json", mode="r") as class_f:
+    class_data = json.load(class_f)
+
 
 class Barbarian(Character):
 
@@ -16,15 +19,15 @@ class Barbarian(Character):
         super().__init__(name, chosen_skills)
         self.clss = "Barbarian"
         self.background = background
-        self.path = None
         self.race = race
-        self.description = "A fierce warrior of primitive background who can enter a battle rage"
-        self.hit_dice = "1d12"
-        self.primary_ability = "Strength"
-        self.saving_throw_proficiencies = ["Strength", "Constitution"]
-        self.other_skills_languages = [
-            "Light and medium armor", "shields", "simple and martial weapons"]
-        self.available_skills = "2, Animal Handling, Athletics, Intimidation, Nature, Perception, Survival"
+        self.description = class_data[self.clss]["description"]
+        self.hit_dice = class_data[self.clss]["Hit Die"]
+        self.primary_ability = class_data[self.clss]["Primary Ability"]
+        self.saving_throw_proficiencies = [word.strip() for word in class_data[self.clss]["Saving Throw Proficiencies"].split(
+            "&")]
+        self.other_skills_languages = class_data[self.clss]["Armor and Weapon Proficiencies"].split(
+            ",")
+        self.available_skills = class_data[self.clss]["skills"]
         self.speed = race_data[self.race]["Speed"]
 
         # incorperate the ability score increase,, let the player know it will be automatically calculated
@@ -48,12 +51,20 @@ class Barbarian(Character):
             if self.exp > exp[0]:
                 self.level = exp[1]
                 self.proficiency_bonus = exp[2]
+                self.passive_perception = 10 + \
+                    self.characteristics["wisdom"][1]
+                for trait in self.saving_throws:
+                    points = self.characteristics[trait.lower(
+                    ).strip()][1]
+
+                    if trait in self.saving_throw_proficiencies:
+                        self.saving_throws[trait] = points + \
+                            self.proficiency_bonus
+                    else:
+                        self.saving_throws[trait] = points
+
                 self.claculate_hp()
                 self.update_skills()
-
-            if hasattr(self, "spell_save_dc"):
-                self.spell_save_dc = 8 + self.proficiency_bonus + self.characteristics[
-                    self.spell_casting_abilty.lower()][1]
 
     def update_skills(self):
 

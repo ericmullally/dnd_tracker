@@ -1,3 +1,5 @@
+# incorperate the ability score increase,, let the player know it will be automatically calculated
+
 import sys
 import json
 import os

@@ -16,16 +16,18 @@ class Warlock(Character):
         self.clss = "Warlock"
         self.background = background
         self.race = race
-        self.description = "A wielder of magic that is derived from a bargain with an extraplanar entity"
-        self.hit_dice = "1d8"
-        self.primary_ability = "Charisma"
-        self.saving_throw_proficiencies = ["Wisdom", "Charisma"]
-        self.other_skills_languages = ["Light armor", "simple weapons"]
-        self.available_skills = "2, Arcana, Deception, History, Intimidation, Investigation, Nature, Religion"
+        self.description = class_data[self.clss]["description"]
+        self.hit_dice = class_data[self.clss]["Hit Die"]
+        self.primary_ability = class_data[self.clss]["Primary Ability"]
+        self.saving_throw_proficiencies = [word.strip() for word in class_data[self.clss]["Saving Throw Proficiencies"].split(
+            "&")]
+        self.other_skills_languages = class_data[self.clss]["Armor and Weapon Proficiencies"].split(
+            ",")
+        self.available_skills = class_data[self.clss]["skills"]
         self.speed = race_data[self.race]["Speed"]
         self.spell_save_dc = 8
         self.spell_slots = {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0}
-        self.spell_casting_abilty = "Charisma"
+        self.spell_casting_abilty = class_data[self.clss]["Spellcasting Ability"]
         self.spell_attack_bonus = 0
 
         self.spells = {"level_cantrip": [], "level_1": [], "level_2": [], "level_3": [], "level_4": [
@@ -138,6 +140,9 @@ class Warlock(Character):
                 self.characteristics["wisdom"][1]
             self.spell_attack_bonus = self.characteristics[self.spell_casting_abilty.lower()][1] + \
                 self.proficiency_bonus
+            self.spell_save_dc = 8 + self.proficiency_bonus + \
+                self.characteristics[class_data[self.clss]
+                                     ["Spellcasting Ability"].lower()][1]
             self.update_skills()
             self.set_spell_slots()
         except:

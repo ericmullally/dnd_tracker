@@ -57,11 +57,11 @@ class Character:
                                  "Knight", "Noble", "Outlander", "Pirate", "Sage", "Sailor", "Soldier", "Urchin"
                                  )
 
-        if string.capitalize().strip() not in available_backgrounds:
+        if string not in available_backgrounds:
             raise ValueError(
                 f"There is no background availiable: {string}. only basic and player's handbook 5 backgrounds availible")
         else:
-            self._background = string.capitalize().strip()
+            self._background = string
 
     @property
     def race(self):
