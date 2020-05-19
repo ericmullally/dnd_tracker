@@ -9,6 +9,9 @@ with open("reference_data/races_summary.json", mode="r") as race_F:
 with open("reference_data/background_proficiencies.json", mode="r") as backgroud_f:
     background_data = json.load(backgroud_f)
 
+with open("reference_data/classes_summary.json", mode="r") as class_f:
+    class_data = json.load(class_f)
+
 
 class Warlock(Character):
     def __init__(self, name, race, background, chosen_skills):

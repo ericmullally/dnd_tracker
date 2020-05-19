@@ -133,7 +133,7 @@ class Spell_display(Spell_and_cantrip_baseClass):
         for item in dir(self.ui):
             if "slot" in item and item != "spell_slot_layout":
                 slot = getattr(self.ui, item)
-                if self.character.clss != "Warlock":
+                if self.character.clss != "Warlock" and self.character.clss != "Paladin":
                     value = self.character.spell_slots[slot.objectName().split("_")[1]] 
                 else:
                     value = self.character.spell_slots[slot.objectName().split("_")[1]] if int(slot.objectName().split("_")[1]) <= 5 else 0
