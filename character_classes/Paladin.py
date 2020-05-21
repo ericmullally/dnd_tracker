@@ -42,11 +42,9 @@ class Paladin(Character):
         self.background_skills = [proficiency.strip().lower(
         ) for proficiency in background_data[self.background]["Skill Proficiencies"].split(",")]
 
-    
     def claculate_hp(self):
         self.hp = (int(self.hit_dice.split(
             "d")[1]) + self.characteristics["constitution"][1]) * self.level
-
 
     def level_up(self):
         levels = [(0, 1, 2), (300, 2, 2), (900, 3, 2), (2700, 4, 2), (6500, 5, 3),
@@ -82,7 +80,6 @@ class Paladin(Character):
         self.spell_attack_bonus = self.characteristics[self.spell_casting_abilty.lower()][1] + \
             self.proficiency_bonus
 
-    
     def update_skills(self):
         for skill in self.skills:
             characteristic_needed = self.skills[skill][0]
@@ -91,9 +88,6 @@ class Paladin(Character):
                     self.proficiency_bonus
             else:
                 self.skills[skill][1] = self.characteristics[characteristic_needed][1]
-
-
-    
     def set_characteristics(self, name, val):
         self.characteristics[name][0] = val
         self.characteristics[name][1] = math.floor((val/2)-5)
@@ -157,13 +151,12 @@ class Paladin(Character):
             ex = sys.exc_info()
             print(ex[1])
 
-
     def set_spell_slots(self):
 
         slots = {"1": [0, 0, 0, 0, 0], "2": [2, 0, 0, 0, 0], "3": [3, 0, 0, 0, 0], "4": [3, 0, 0, 0, 0], "5": [4, 2, 0, 0, 0],
-                 "6": [4, 2, 0, 0, 0], "7": [4,3, 0, 0, 0], "8":[4, 3, 0, 0, 0], "9": [4, 3, 2, 0, 0], "10": [4, 3, 2, 0, 0],
-                 "11": [4, 3, 3, 0, 0], "12": [4, 3, 3, 0, 0], "13":[4, 3, 3, 1, 0], "14":[4, 3, 3, 1, 0], "15": [4, 3, 3, 2, 0],
-                 "16": [4, 3, 3, 2, 0], "17": [4, 3, 3, 3, 1], "18": [4, 3, 3, 3, 1], "19": [4, 3, 3, 3, 2], "20": [4, 3, 3, 3, 1]}
+                 "6": [4, 2, 0, 0, 0], "7": [4, 3, 0, 0, 0], "8": [4, 3, 0, 0, 0], "9": [4, 3, 2, 0, 0], "10": [4, 3, 2, 0, 0],
+                 "11": [4, 3, 3, 0, 0], "12": [4, 3, 3, 0, 0], "13": [4, 3, 3, 1, 0], "14": [4, 3, 3, 1, 0], "15": [4, 3, 3, 2, 0],
+                 "16": [4, 3, 3, 2, 0], "17": [4, 3, 3, 3, 1], "18": [4, 3, 3, 3, 1], "19": [4, 3, 3, 3, 2], "20": [4, 3, 3, 3, 2]}
 
         for level, slot in slots.items():
             if str(self.level) == level:
