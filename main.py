@@ -158,6 +158,14 @@ class MainWindow(main_baseClass):
             action_spells.triggered.connect(self.show_spells)
             self.ui.menumain.addAction(action_spells)
 
+        # need to remove spell action if character has no spells
+        # if not hasattr(self.character, "spell_save_dc") and "action_spells" in self_childList:
+        #
+        #     action_spells = QAction("Spells", self)
+        #     action_spells.setObjectName("action_spells")
+        #     action_spells.triggered.connect(self.show_spells)
+        #     self.ui.menumain.addAction(action_spells)
+
         for attr, val in char.__dict__.items():
 
             if attr == "characteristics":

@@ -125,9 +125,9 @@
   "Wizard": {
     "description": "A scholarly magic-user capable of manipulating the structures of reality",
     "Hit Die": "1d6",
-    "Primary Ability": "Intelligence",
-    "Saving Throw Proficiencies": "Intelligence & Wisdom",
-    "Spellcasting Ability": "Intelligence",
+    "Primary Ability": "Intellegence",
+    "Saving Throw Proficiencies": "Intellegence & Wisdom",
+    "Spellcasting Ability": "Intellegence",
     "Spell save DC": 8,
     "Armor and Weapon Proficiencies": "Daggers, darts, slings, quarterstaffs, light crossbows",
     "skills": "2, Arcana, History, Insight, Investigation, Medicine, Religion"
