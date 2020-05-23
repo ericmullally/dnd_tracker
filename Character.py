@@ -109,7 +109,7 @@ class Character:
             item_type, item_name, count_or_list = item
         else:
             raise ValueError("must include item type, item name, and count.")
-            return
+           
         if item_type.lower().strip() == "currency":
             currency_list = [list(val.keys())[0]
                              for val in self._equipment[item_type]]

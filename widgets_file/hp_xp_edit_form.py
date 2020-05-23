@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'hp_xp_edit_form.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.2
+# Created by: PyQt5 UI code generator 5.14.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -79,3 +79,13 @@ class Ui_hp_xp_edit_form(object):
         self.add_button.setText(_translate("hp_xp_edit_form", "Update"))
         self.cancel_button.setText(_translate("hp_xp_edit_form", "Cancel"))
         self.label_4.setText(_translate("hp_xp_edit_form", "Armor"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    hp_xp_edit_form = QtWidgets.QWidget()
+    ui = Ui_hp_xp_edit_form()
+    ui.setupUi(hp_xp_edit_form)
+    hp_xp_edit_form.show()
+    sys.exit(app.exec_())

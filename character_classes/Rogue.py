@@ -13,11 +13,11 @@ with open("reference_data/classes_summary.json", mode="r") as class_f:
     class_data = json.load(class_f)
 
 
-class Rouge(Character):
+class Rogue(Character):
 
     def __init__(self, name, race, background, chosen_skills):
         super().__init__(name, chosen_skills)
-        self.clss = "Rouge"
+        self.clss = "Rogue"
         self.background = background
         self.race = race
         self.description = class_data[self.clss]["description"]
@@ -82,11 +82,6 @@ class Rouge(Character):
 
     def setup(self, info):
         try:
-            clss_string = info["class_box"]
-            race_str = info["race_box"]
-            name = info["name_val"]
-            background_str = info["background_box"].capitalize().strip()
-
             for attr in info["attributes"].items():
                 name, val = attr
                 ability_score_increase_list = self.ability_score_increase.split(
@@ -130,9 +125,16 @@ class Rouge(Character):
 
             self.armor_class = 10 + \
                 self.characteristics["dexterity"][1]
-            self.passive_perception = 8 + \
+            self.passive_perception = 10 + \
                 self.characteristics["wisdom"][1]
+            self.spell_attack_bonus = self.characteristics[self.spell_casting_abilty.lower()][1] + \
+                self.proficiency_bonus
+            self.spell_save_dc = 8 + self.proficiency_bonus + \
+                self.characteristics[class_data[self.clss]
+                                     ["Spellcasting Ability"].lower()][1]
             self.update_skills()
+            self.set_spell_slots()
+
         except:
             ex = sys.exc_info()
             print(ex[1])

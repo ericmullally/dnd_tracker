@@ -691,6 +691,34 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>alignment_box</tabstop>
+  <tabstop>language_list</tabstop>
+  <tabstop>backstory_text_val</tabstop>
+  <tabstop>apperance_text_val</tabstop>
+  <tabstop>race_box</tabstop>
+  <tabstop>class_box</tabstop>
+  <tabstop>background_box</tabstop>
+  <tabstop>name_val</tabstop>
+  <tabstop>eye_val</tabstop>
+  <tabstop>age_val</tabstop>
+  <tabstop>weight_val</tabstop>
+  <tabstop>height_val</tabstop>
+  <tabstop>skin_val</tabstop>
+  <tabstop>hair_val</tabstop>
+  <tabstop>flaw_val</tabstop>
+  <tabstop>personality_val</tabstop>
+  <tabstop>bonds_val</tabstop>
+  <tabstop>ideals_val</tabstop>
+  <tabstop>strength</tabstop>
+  <tabstop>dexterity</tabstop>
+  <tabstop>constitution</tabstop>
+  <tabstop>intellegence</tabstop>
+  <tabstop>wisdom</tabstop>
+  <tabstop>charisma</tabstop>
+  <tabstop>submit_button</tabstop>
+  <tabstop>cancel_button</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

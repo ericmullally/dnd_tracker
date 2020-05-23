@@ -84,7 +84,7 @@ class Create_Char_Form(create_char_class):
         # global character
         skills_payload = []
 
-        for box in self.skills_form.ui.verticalLayoutWidget.children():
+        for box in self.skills_form.children():
             if isinstance(box, QtWidgets.QLineEdit):
                 if "," in box.text():
                     skills_payload = [item.strip().lower()

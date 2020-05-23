@@ -20,7 +20,7 @@ def choose_class(class_name, name, race, background, chosen_skills):
         return Paladin.Paladin(name, race, background, chosen_skills)
     elif class_name == "Ranger":
         return Ranger.Ranger(name, race, background, chosen_skills)
-    elif class_name == "Rouge":
+    elif class_name == "Rogue":
         return Rogue.Rogue(name, race, background, chosen_skills)
     elif class_name == "Sorcerer":
         return Sorcerer.Sorcerer(name, race, background, chosen_skills)
