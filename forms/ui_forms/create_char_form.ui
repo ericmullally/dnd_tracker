@@ -14,23 +14,6 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" rowspan="4" colspan="6">
-    <widget class="QLabel" name="char_form_title">
-     <property name="font">
-      <font>
-       <pointsize>15</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Character Form</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
    <item row="10" column="0">
     <widget class="QLabel" name="back_strory_label">
      <property name="font">
@@ -687,6 +670,39 @@
        <widget class="QLineEdit" name="ideals_val"/>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item row="0" column="0" rowspan="4" colspan="3">
+    <widget class="QLabel" name="char_form_title">
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Character Form</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3" rowspan="5">
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Class Ability socore increase is automatically calculated</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
   </layout>

@@ -104,8 +104,6 @@ class MainWindow(main_baseClass):
                 error_box.show()
 
     def show_create_form(self):
-        # if a character is currently loaded shows a warning that the current character may be overwritten.
-        # else just shows the create form
         if self.character != None:
             warning_box = QtWidgets.QMessageBox.question(
                 self, "Confirm Load", "Your current character may be overwritten, Continue?")
@@ -117,10 +115,9 @@ class MainWindow(main_baseClass):
             else:
                 return
         else:
-            # //////////////////////////////////////////// add warning box that ability score is automatically calculated///////////
-
             self.cf = Create_Char_Form()
             self.cf.submitted.connect(self.update_form)
+
             self.cf.show()
 
     def show_edit_form(self, form_button):

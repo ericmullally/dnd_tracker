@@ -130,15 +130,40 @@ class Spell_display(Spell_and_cantrip_baseClass):
             return
 
     def set_spell_slots(self):
+        if self.character.clss == "Sorcerer":
+            self.ui.sorcerer_points_label = QtWidgets.QLabel(self)
+            self.ui.sorcerer_points_label.setText("Sorcery points")
+            self.ui.spell_slot_layout.addWidget(self.ui.sorcerer_points_label,
+                                                self.ui.spell_slot_layout.rowCount(), self.ui.spell_slot_layout.columnCount()-(self.ui.spell_slot_layout.columnCount()/2) - 2, 1, 4)
+
+            self.ui.sorcery_points = QtWidgets.QSpinBox(self)
+            self.ui.sorcery_points.setValue(self.character.level)
+            self.ui.sorcery_points.setObjectName("sorcery_points")
+            self.ui.spell_slot_layout.addWidget(self.ui.sorcery_points,
+                                                self.ui.spell_slot_layout.rowCount()-1, self.ui.spell_slot_layout.columnCount()-4, 1, 2)
+        if self.character.clss == "Monk":
+            self.ui.ki_points_label = QtWidgets.QLabel(self)
+            self.ui.ki_points_label.setText("KI points")
+            self.ui.spell_slot_layout.addWidget(self.ui.ki_points_label,
+                                                self.ui.spell_slot_layout.rowCount(), self.ui.spell_slot_layout.columnCount()-(self.ui.spell_slot_layout.columnCount()/2) - 2, 1, 4)
+
+            self.ui.ki_points = QtWidgets.QSpinBox(self)
+            self.ui.ki_points.setValue(self.character.level)
+            self.ui.ki_points.setObjectName("ki_points")
+            self.ui.spell_slot_layout.addWidget(self.ui.ki_points,
+                                                self.ui.spell_slot_layout.rowCount()-1, self.ui.spell_slot_layout.columnCount()-4, 1, 2)
+
         for item in dir(self.ui):
-            if "slot" in item and item != "spell_slot_layout":
+            if "slot" in item and item != "spell_slot_layout" and item != "sorcery_slots":
                 slot = getattr(self.ui, item)
 
-                fifth_level_users = ["Warlock", "Paladin", "Ranger"]
+                fifth_level_users = ["Warlock", "Paladin", "Ranger", "Monk"]
 
                 if self.character.clss not in fifth_level_users:
                     value = self.character.spell_slots[slot.objectName().split("_")[
                         1]]
+                elif self.character.clss == "Monk":
+                    value = 0
                 else:
                     value = self.character.spell_slots[slot.objectName().split(
                         "_")[1]] if int(slot.objectName().split("_")[1]) <= 5 else 0
