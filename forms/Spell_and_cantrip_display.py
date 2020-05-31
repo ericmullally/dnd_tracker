@@ -134,22 +134,24 @@ class Spell_display(Spell_and_cantrip_baseClass):
             self.ui.sorcerer_points_label = QtWidgets.QLabel(self)
             self.ui.sorcerer_points_label.setText("Sorcery points")
             self.ui.spell_slot_layout.addWidget(self.ui.sorcerer_points_label,
-                                                self.ui.spell_slot_layout.rowCount(), self.ui.spell_slot_layout.columnCount()-(self.ui.spell_slot_layout.columnCount()/2) - 2, 1, 4)
+                                                self.ui.spell_slot_layout.rowCount(), (self.ui.spell_slot_layout.columnCount()-(self.ui.spell_slot_layout.columnCount()/2)) - 3, 1, 4)
 
             self.ui.sorcery_points = QtWidgets.QSpinBox(self)
             self.ui.sorcery_points.setValue(self.character.level)
             self.ui.sorcery_points.setObjectName("sorcery_points")
+            self.ui.sorcery_points.setStyleSheet("background-color:#eaebeb; color:black;")
             self.ui.spell_slot_layout.addWidget(self.ui.sorcery_points,
                                                 self.ui.spell_slot_layout.rowCount()-1, self.ui.spell_slot_layout.columnCount()-4, 1, 2)
         if self.character.clss == "Monk":
             self.ui.ki_points_label = QtWidgets.QLabel(self)
             self.ui.ki_points_label.setText("KI points")
             self.ui.spell_slot_layout.addWidget(self.ui.ki_points_label,
-                                                self.ui.spell_slot_layout.rowCount(), self.ui.spell_slot_layout.columnCount()-(self.ui.spell_slot_layout.columnCount()/2) - 2, 1, 4)
+                                                self.ui.spell_slot_layout.rowCount(), (self.ui.spell_slot_layout.columnCount()-(self.ui.spell_slot_layout.columnCount()/2))- 3, 1, 4)
 
             self.ui.ki_points = QtWidgets.QSpinBox(self)
             self.ui.ki_points.setValue(self.character.level)
             self.ui.ki_points.setObjectName("ki_points")
+            self.ui.ki_points.setStyleSheet("background-color:#eaebeb; color:black;")
             self.ui.spell_slot_layout.addWidget(self.ui.ki_points,
                                                 self.ui.spell_slot_layout.rowCount()-1, self.ui.spell_slot_layout.columnCount()-4, 1, 2)
 

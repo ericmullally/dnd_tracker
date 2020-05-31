@@ -43,6 +43,7 @@ class Edit_form(QtWidgets.QWidget):
             self.ui.temp_hp_input.setValue(character.temp_hp)
             self.ui.xp_input.setValue(character.exp)
             self.ui.armor_input.setValue(character.armor_class)
+            self.ui.inspiration_input.setValue(character.inspiration)
 
     def change_values(self, character):
         if self.objectName() == "currency_form":
@@ -56,7 +57,7 @@ class Edit_form(QtWidgets.QWidget):
         if self.objectName() == "attacks_form":
             value_check_list = [self.ui.name_input,
                                 self.ui.bonus_input, self.ui.damage_input]
-            for i, val in enumerate(value_check_list):
+            for  val in value_check_list:
                 if len(val.text()) == 0:
                     error_message = QtWidgets.QMessageBox(self)
                     error_message.setText(
@@ -111,5 +112,6 @@ class Edit_form(QtWidgets.QWidget):
             character.temp_hp = self.ui.temp_hp_input.value()
             character.exp = self.ui.xp_input.value()
             character.armor_class = self.ui.armor_input.value()
+            character.inspiration = self.ui.inspiration_input.value()
             self.update_characer.emit(character)
             self.close()
