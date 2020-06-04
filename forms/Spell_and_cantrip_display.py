@@ -93,7 +93,7 @@ class Spell_display(Spell_and_cantrip_baseClass):
                                                   "font-size: 8px;")
                 spell_delete_button.setCursor(QtGui.QCursor(
                     QtCore.Qt.PointingHandCursor))
-                # /////////////////////////////////////////////////////////////////////////////////////////
+               
                 spell_delete_button.clicked.connect(self.delete_spell)
 
                 spell_widget_list.append(
