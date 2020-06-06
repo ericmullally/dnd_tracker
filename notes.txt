@@ -1,0 +1,17 @@
+need option to choose starting gear as some classes have multiple options
+
+tweak language options based on race?
+
+put in a class description.
+
+need to handle spell slots differntly for warlocks and other magic casters
+
+need to show description of features.
+
+spell scrolls need to be handled.
+
+need to mark spells as active or not.
+
+need to add tool tips for attacks, tressure and features.
+
+need a page to display things about the path you choose and abilities.
