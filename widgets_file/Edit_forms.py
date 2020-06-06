@@ -32,7 +32,7 @@ class Edit_form(QtWidgets.QWidget):
         self.set_vals(character)
 
     def set_vals(self, character):
-        # some of these use tuples, which will have to be changed to make them editable.
+        
         if self.objectName() == "currency_form":
             for currency in character.equipment["currency"]:
                 curr_info = list(currency.items())[0]
