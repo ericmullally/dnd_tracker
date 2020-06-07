@@ -1,4 +1,4 @@
-# incorperate the ability score increase,, let the player know it will be automatically calculated
+
 
 import sys
 import json
@@ -145,7 +145,7 @@ class MainWindow(main_baseClass):
             if char.exp != self.previous_xp:
                 self.previous_xp = char.exp
                 self.character.level_up()
-        # checks if menu has action spell button and if required adds one.
+       
         self_childList = list(
             map(lambda child: child.objectName(), self.children()))
         if hasattr(self.character, "spell_save_dc") and "action_spells" not in self_childList:
@@ -155,13 +155,13 @@ class MainWindow(main_baseClass):
             action_spells.triggered.connect(self.show_spells)
             self.ui.menumain.addAction(action_spells)
 
-        # need to remove spell action if character has no spells
-        # if not hasattr(self.character, "spell_save_dc") and "action_spells" in self_childList:
-        #
-        #     action_spells = QAction("Spells", self)
-        #     action_spells.setObjectName("action_spells")
-        #     action_spells.triggered.connect(self.show_spells)
-        #     self.ui.menumain.addAction(action_spells)
+        # remove spell action if character has no spells
+        # elif not hasattr(self.character, "spell_save_dc") and "action_spells" in self_childList:
+        #     action_menu = self.findChild(QtWidgets.QMenuBar, "menubar" )
+        #     action_menu.removeAction(self.findChild(QtWidgets.QAction,"action_spells"))
+        #     self.update()
+
+
 
         for attr, val in char.__dict__.items():
 
