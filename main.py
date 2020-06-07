@@ -5,7 +5,7 @@ import json
 import os
 import re
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction
-from PyQt5 import QtCore, QtGui, QtWidgets, uic
+from PyQt5 import QtCore, QtWidgets, QtGui, uic
 from dnd_logic.save_load_character import save_character
 
 
@@ -145,7 +145,7 @@ class MainWindow(main_baseClass):
             if char.exp != self.previous_xp:
                 self.previous_xp = char.exp
                 self.character.level_up()
-       
+
         self_childList = list(
             map(lambda child: child.objectName(), self.children()))
         if hasattr(self.character, "spell_save_dc") and "action_spells" not in self_childList:
@@ -156,12 +156,9 @@ class MainWindow(main_baseClass):
             self.ui.menumain.addAction(action_spells)
 
         # remove spell action if character has no spells
-        # elif not hasattr(self.character, "spell_save_dc") and "action_spells" in self_childList:
-        #     action_menu = self.findChild(QtWidgets.QMenuBar, "menubar" )
-        #     action_menu.removeAction(self.findChild(QtWidgets.QAction,"action_spells"))
-        #     self.update()
-
-
+        elif not hasattr(self.character, "spell_save_dc") and "action_spells" in self_childList:
+            action_spell = self.findChild(QtWidgets.QAction, "action_spells")
+            action_spell.setVisible(False)
 
         for attr, val in char.__dict__.items():
 
