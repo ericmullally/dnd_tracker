@@ -127,13 +127,8 @@ class Rogue(Character):
                 self.characteristics["dexterity"][1]
             self.passive_perception = 10 + \
                 self.characteristics["wisdom"][1]
-            self.spell_attack_bonus = self.characteristics[self.spell_casting_abilty.lower()][1] + \
-                self.proficiency_bonus
-            self.spell_save_dc = 8 + self.proficiency_bonus + \
-                self.characteristics[class_data[self.clss]
-                                     ["Spellcasting Ability"].lower()][1]
             self.update_skills()
-            self.set_spell_slots()
+          
 
         except:
             ex = sys.exc_info()
