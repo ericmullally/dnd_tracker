@@ -29,7 +29,6 @@ class Fighter(Character):
             ",")
         self.available_skills = class_data[self.clss]["skills"]
         self.speed = race_data[self.race]["Speed"]
-       
 
         self.ability_score_increase = race_data[self.race]["Ability Score Increase"]
         self.background_skills = [proficiency.strip().lower(
@@ -66,15 +65,10 @@ class Fighter(Character):
                 self.claculate_hp()
                 self.update_skills()
 
-
     def update_skills(self):
         for skill in self.skills:
             characteristic_needed = self.skills[skill][0]
-            if skill in self.skills_picked or skill in self.background_skills:
-                self.skills[skill][1] = self.characteristics[characteristic_needed][1] + \
-                    self.proficiency_bonus
-            else:
-                self.skills[skill][1] = self.characteristics[characteristic_needed][1]
+            self.skills[skill][2] = self.characteristics[characteristic_needed][1]
 
     def set_characteristics(self, name, val):
         self.characteristics[name][0] = val
@@ -127,13 +121,9 @@ class Fighter(Character):
                 self.characteristics["dexterity"][1]
             self.passive_perception = 10 + \
                 self.characteristics["wisdom"][1]
-            
+
             self.update_skills()
-            
 
         except:
             ex = sys.exc_info()
             print(ex[1])
-
-   
-

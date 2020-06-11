@@ -79,11 +79,7 @@ class Monk(Character):
     def update_skills(self):
         for skill in self.skills:
             characteristic_needed = self.skills[skill][0]
-            if skill in self.skills_picked or skill in self.background_skills:
-                self.skills[skill][1] = self.characteristics[characteristic_needed][1] + \
-                    self.proficiency_bonus
-            else:
-                self.skills[skill][1] = self.characteristics[characteristic_needed][1]
+            self.skills[skill][2] = self.characteristics[characteristic_needed][1]
 
     def set_characteristics(self, name, val):
         self.characteristics[name][0] = val

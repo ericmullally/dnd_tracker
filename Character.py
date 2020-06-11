@@ -4,7 +4,7 @@ import math
 
 
 class Character:
-    def __init__(self, name, chosen_skills):
+    def __init__(self, name):
         self.name = name
         self._background = ""
         self._race = ""
@@ -35,12 +35,12 @@ class Character:
             "ep": 0}, {"gp": 0}, {"pp": 0}], "items": {}}
         self.characteristics = {"strength": [0, 0], "dexterity": [0, 0], "constitution": [
             0, 0], "intellegence": [0, 0], "wisdom": [0, 0], "charisma": [0, 0]}
-        self.skills = {"acrobatics": ["dexterity", 0], "animal handling": ["wisdom", 0], "arcana": ["intellegence", 0], "athletics": ["strength", 0],
-                       "deception": ["charisma", 0], "history": ["intellegence", 0], "insight": ["wisdom", 0], "intimidation": ["charisma", 0],
-                       "investigation": ["intellegence", 0], "medicine": ["wisdom", 0], "nature": ["intellegence", 0], "perception": ["wisdom", 0],
+        self.skills = {"acrobatics": ["dexterity", False, 0], "animal handling": ["wisdom", False, 0], "arcana": ["intellegence", False, 0], "athletics": ["strength", False, 0],
+                       "deception": ["charisma", False, 0], "history": ["intellegence", False, 0], "insight": ["wisdom", False, 0], "intimidation": ["charisma", False, 0],
+                       "investigation": ["intellegence", False, 0], "medicine": ["wisdom", False, 0], "nature": ["intellegence", False, 0], "perception": ["wisdom", False, 0],
                        "performance": ["charisma", 0], "persuation": ["charisma", 0], "religion": ["intellegence", 0], "slieght of hand": ["dexterity", 0],
-                       "stealth": ["dexterity", 0], "survival": ["wisdom", 0]}
-        self.skills_picked = chosen_skills
+                       "stealth": ["dexterity", False, 0], "survival": ["wisdom", False, 0]}
+
         self.saving_throws = {"Strength": 0, "Dexterity": 0,
                               "Constitution": 0, "Intellegence": 0, "Wisdom": 0, "Charisma": 0}
 
@@ -109,7 +109,7 @@ class Character:
             item_type, item_name, count_or_list = item
         else:
             raise ValueError("must include item type, item name, and count.")
-           
+
         if item_type.lower().strip() == "currency":
             currency_list = [list(val.keys())[0]
                              for val in self._equipment[item_type]]
