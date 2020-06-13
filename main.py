@@ -1,5 +1,3 @@
-
-
 import sys
 import json
 import os
@@ -192,8 +190,7 @@ class MainWindow(main_baseClass):
 
             elif attr == "skills":
                 for skill in val:
-                    proficient = char.skills[skill][1]
-                    self.change_skill_proficiency(skill, proficient)
+                    self.change_skill_proficiency(skill)
 
             elif attr == "_equipment":
                 for equip in val.items():
@@ -345,37 +342,40 @@ class MainWindow(main_baseClass):
     def set_skill_listners(self):
         for item in self.ui.skills_frame.children():
             if isinstance(item, QtWidgets.QCheckBox):
-                item.stateChanged.connect(
-                    lambda: self.change_skill_proficiency(item))
+                item.stateChanged.connect(self.change_skill_proficiency)
 
-    def change_skill_proficiency(self, checkbox, *args):
-        skill_name_list = checkbox.objectName().split("_")
-        skill_name = skill_name_list[0] if len(
-            skill_name_list) < 3 else skill_name_list[:-1]
-        characteristic_needed = self.character.skills[skill_name][0]
-        skill_val = getattr(self.ui, f"{skill_name}_val")
-        if checkbox.isChecked:
-            value = self.character.characteristics[characteristic_needed][1] + \
-                self.character.proficiency_bonus
-            self.character.skills[skill_name][1] = True
+    def change_skill_proficiency(self, *args):
+        caller = self.sender()
+        
+        if isinstance(caller, QtWidgets.QCheckBox):
+            attr_name = caller.objectName().split("_")[0] if  len(caller.objectName().split("_")) < 3 else "_".join(caller.objectName().split("_")[:-1])
+            characteristic_needed = self.character.skills[attr_name][0]
+            skill_val = getattr(self.ui, f"{attr_name}_val")
+
+            if caller.isChecked():
+                value = self.character.characteristics[characteristic_needed][1] + \
+                    self.character.proficiency_bonus
+                self.character.skills[attr_name][1] = True
+            else:
+                value = self.character.characteristics[characteristic_needed][1]
+                self.character.skills[attr_name][1] = False
+            skill_val.setText(str(value))
         else:
-            value = self.character.characteristics[characteristic_needed][1]
-        skill_val.setText(str(value))
+            skill_name = args[0]
+            proficient = self.character.skills[skill_name][1]
+            value = self.character.skills[skill_name][2] if not proficient == True else self.character.skills[skill_name][2] + self.character.proficiency_bonus
+            skill_val = getattr(self.ui, f"{skill_name}_val")
+            skill_checkbox = getattr(self.ui, f"{skill_name}_checkBox")
+            if proficient == True:
+                skill_checkbox.blockSignals(True)
+                skill_checkbox.setChecked(True)
+                skill_checkbox.blockSignals(False)
+                
+          
+            skill_val.setText(str(value))
 
-    # def change_skill_proficiency(self, skill_name, is_checked):
-    #     attr_name = skill_name if " " not in skill_name else "_".join(
-    #         skill_name.split(" "))
-
-    #     characteristic_needed = self.character.skills[skill_name][0]
-
-    #     skill_val = getattr(self.ui, f"{attr_name}_val")
-    #     if is_checked == True:
-    #         value = self.character.characteristics[characteristic_needed][1] + \
-    #             self.character.proficiency_bonus
-    #         self.character.skills[skill_name][1] = True
-    #     else:
-    #         value = self.character.characteristics[characteristic_needed][1]
-    #     skill_val.setText(str(value))
+        
+      
 
 
 if __name__ == "__main__":

@@ -28,7 +28,7 @@ def load_character(char_name):
         character_saved = json.load(char_sheet)
 
     player = choose_class(character_saved["clss"], char_name,
-                          character_saved["race"], character_saved["background"], character_saved["skills_picked"])
+                          character_saved["race"], character_saved["background"])
 
     for item in character_saved:
 

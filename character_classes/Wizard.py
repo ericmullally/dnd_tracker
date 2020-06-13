@@ -15,8 +15,8 @@ with open("reference_data/classes_summary.json", mode="r") as class_f:
 
 class Wizard(Character):
 
-    def __init__(self, name, race, background, chosen_skills):
-        super().__init__(name, chosen_skills)
+    def __init__(self, name, race, background):
+        super().__init__(name)
         self.clss = "Wizard"
         self.background = background
         self.race = race

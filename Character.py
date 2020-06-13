@@ -35,10 +35,10 @@ class Character:
             "ep": 0}, {"gp": 0}, {"pp": 0}], "items": {}}
         self.characteristics = {"strength": [0, 0], "dexterity": [0, 0], "constitution": [
             0, 0], "intellegence": [0, 0], "wisdom": [0, 0], "charisma": [0, 0]}
-        self.skills = {"acrobatics": ["dexterity", False, 0], "animal handling": ["wisdom", False, 0], "arcana": ["intellegence", False, 0], "athletics": ["strength", False, 0],
+        self.skills = {"acrobatics": ["dexterity", False, 0], "animal_handling": ["wisdom", False, 0], "arcana": ["intellegence", False, 0], "athletics": ["strength", False, 0],
                        "deception": ["charisma", False, 0], "history": ["intellegence", False, 0], "insight": ["wisdom", False, 0], "intimidation": ["charisma", False, 0],
                        "investigation": ["intellegence", False, 0], "medicine": ["wisdom", False, 0], "nature": ["intellegence", False, 0], "perception": ["wisdom", False, 0],
-                       "performance": ["charisma", 0], "persuation": ["charisma", 0], "religion": ["intellegence", 0], "slieght of hand": ["dexterity", 0],
+                       "performance": ["charisma", False, 0], "persuation": ["charisma", False, 0], "religion": ["intellegence", False, 0], "slieght_of_hand": ["dexterity", False, 0],
                        "stealth": ["dexterity", False, 0], "survival": ["wisdom", False, 0]}
 
         self.saving_throws = {"Strength": 0, "Dexterity": 0,

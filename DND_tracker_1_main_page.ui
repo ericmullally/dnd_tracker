@@ -1206,8 +1206,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>215</width>
-         <height>224</height>
+         <width>200</width>
+         <height>187</height>
         </rect>
        </property>
        <layout class="QFormLayout" name="equipment_layout">
@@ -3245,8 +3245,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>229</width>
-         <height>224</height>
+         <width>284</width>
+         <height>187</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_other_skills"/>
@@ -3937,9 +3937,9 @@
         </widget>
        </item>
        <item row="7" column="2">
-        <widget class="QCheckBox" name="sleight_of_hand_checkBox">
+        <widget class="QCheckBox" name="slieght_of_hand_checkBox">
          <property name="text">
-          <string>Sleight of hand</string>
+          <string>Slieght of hand</string>
          </property>
         </widget>
        </item>
@@ -3986,7 +3986,7 @@
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QCheckBox" name="animal_handlig_checkBox">
+        <widget class="QCheckBox" name="animal_handling_checkBox">
          <property name="text">
           <string>Animal Handling</string>
          </property>
@@ -5400,8 +5400,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>180</width>
-         <height>224</height>
+         <width>225</width>
+         <height>187</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_feats_traits"/>
@@ -5552,8 +5552,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>385</width>
-         <height>323</height>
+         <width>289</width>
+         <height>250</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_attacks">
@@ -5572,7 +5572,7 @@
      <x>0</x>
      <y>0</y>
      <width>1254</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menumain">
