@@ -26,8 +26,6 @@ class MainWindow(main_baseClass):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.character = None
-        # need to make a snapshot of exp to know if user is leveling
-        # or just changing other stats
         self.previous_xp = 0
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -74,6 +72,15 @@ class MainWindow(main_baseClass):
 
             if warning_box == QtWidgets.QMessageBox.Yes:
                 if os.path.exists("characters"):
+                    for box in self.ui.skills_frame.children():
+                        if isinstance(box, QtWidgets.QCheckBox):
+                            attr_name = box.objectName().split("_")[0] if  len(box.objectName().split("_")) < 3 else "_".join(box.objectName().split("_")[:-1])
+                            skill_val = getattr(self.ui, f"{attr_name}_val")
+                            skill_val.setText(" ")
+                            box.blockSignals(True)
+                            box.setChecked(False)
+                            box.blockSignals(False)
+                        
                     char_folder = os.listdir("characters")
                     available_chars = []
                     for char in char_folder:

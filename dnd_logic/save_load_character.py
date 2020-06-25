@@ -26,7 +26,7 @@ def save_character(character):
 def load_character(char_name):
     with open(f"characters/saved_character_{char_name}.txt", mode="r") as char_sheet:
         character_saved = json.load(char_sheet)
-
+### ummm i should try just returning the player as the character tha fuq
     player = choose_class(character_saved["clss"], char_name,
                           character_saved["race"], character_saved["background"])
 
